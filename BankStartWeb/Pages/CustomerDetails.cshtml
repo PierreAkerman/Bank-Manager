@@ -1,0 +1,87 @@
+﻿@page
+@model BankStartWeb.Pages.CustomerDetailsModel
+@{
+}
+
+<table class="table table-sm table-striped">
+    <tr>
+        <th >Id</th>
+        <td>@Model.Id</td>
+    </tr>
+    <tr>
+        <th scope="row">Name</th>
+        <td>@Model.Name</td>
+    </tr>
+    <tr>
+        <th scope="row">Surname</th>
+        <td>@Model.Surname</td>
+    </tr>
+    <tr>
+        <th scope="row">Address</th>
+        <td>@Model.Streetaddress</td>
+    </tr>
+    <tr>
+        <th scope="row">City</th>
+        <td>@Model.City</td>
+    </tr>
+    <tr>
+        <th scope="row">Zip-Code</th>
+        <td>@Model.Zipcode</td>
+    </tr>
+    <tr>
+        <th scope="row">Country</th>
+        <td>@Model.Country</td>
+    </tr>
+    <tr>
+        <th scope="row">Country Code</th>
+        <td>@Model.CountryCode</td>
+    </tr>
+    <tr>
+        <th scope="row">National Id</th>
+        <td>@Model.NationalId</td>
+    </tr>
+    <tr>
+        <th scope="row">Tel Country Code</th>
+        <td>@Model.TelephoneCountryCode</td>
+    </tr>
+    <tr>
+        <th scope="row">Telephone</th>
+        <td>@Model.Telephone</td>
+    </tr>
+    <tr>
+        <th scope="row">Email</th>
+        <td>@Model.EmailAddress</td>
+    </tr>
+    <tr>
+        <th scope="row">Birthday</th>
+        <td>@Model.Birthday.ToString("D")</td>
+    </tr>
+    @foreach (var account in Model.Accounts)
+    {
+    <tr>
+        <th scope="row">@account.AccountType Account</th>
+        <td>@account.Balance</td>
+    </tr>
+    }
+    <tr><th scope="row">Total Saldo</th>
+    <td>@Model.TotalSaldo</td></tr>
+
+</table>
+
+@*<ul style="list-style:none">
+    <li>Id: @Model.Id</li>
+    <li>Name: @Model.Name</li>
+    <li>Surname: @Model.Surname</li>
+    <li>Address: @Model.Streetaddress</li>
+    <li>City: @Model.City</li>
+    <li>Zip-Code: @Model.Zipcode</li>
+    <li>Country: @Model.Country</li>
+    <li>Country Code: @Model.CountryCode</li>
+    <li>National Id: @Model.NationalId</li>
+    <li>Tel Country Code: @Model.TelephoneCountryCode</li>
+    <li>Telephone: @Model.Telephone</li>
+    <li>Email: @Model.EmailAddress</li>
+    <li>Birthdate: @Model.Birthday</li>
+</ul>*@
+
+<a class="nav-link text-primary" asp-area="" asp-page="/Customers">Back</a>
