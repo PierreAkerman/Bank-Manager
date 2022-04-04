@@ -3,8 +3,24 @@
 @{
     ViewData["Title"] = "Home page";
 }
+<form method="GET" asp-page="/CustomerDetails">
+    <input name="customerid" placeholder="Enter Customer Id" value=""/>
+    <input type="submit" value="Search" />
+</form>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<h2>Total Customers: @Model.TotalCustomers</h2>
+<h2>Total Accounts: @Model.TotalAccounts</h2>
+<h2>Total $: @Model.TotalBalance</h2>
+
+<h3>Swedish Customers: @Model.SwedishCustomers</h3>
+<h3>Finnish Customers: @Model.FinnishCustomers</h3>
+<h3>Norweigian Customers: @Model.NorweigianCustomers</h3>
+
+<h3>Swedish Accounts: @Model.SwedishAccounts</h3>
+<h3>Finnish Accounts: @Model.FinnishAccounts</h3>
+<h3>Norweigian Accounts: @Model.NorweigianAccounts</h3>
+
+<h3>Swedish Balance: @Model.SwedishBalance</h3>
+<h3>Finnish Balance: @Model.FinnishBalance</h3>
+<h3>Norweigian Balance: @Model.NorweigianBalance</h3>
+

@@ -2,25 +2,69 @@
 @model BankStartWeb.Pages.CustomersModel
 @{
 }
-<h1>Customers</h1>
+
+<form method="GET">
+    <input asp-for="@Model.SearchWord" placeholder="Enter Name or City" />
+    <input type="submit" value="Sök" />
+</form>
+
 <table class="table">
     <tr>
-        <th>Id</th>
-        <th>Name</th>
-        <th>Surname</th>
-        <th>City</th>
-        <th>Country</th>
-        <th>Details</th>
-    </tr>
-    @foreach (var customer in Model.Customers)
-    {
-        <tr>
-            <td>@customer.Id</td>
-            <td>@customer.Givenname</td>
-            <td>@customer.Surname</td>
-            <td>@customer.City</td>
-            <td>@customer.Country</td>
-            <td><a asp-page="/CustomerDetails" asp-route-customerid="@customer.Id">Details</a></td>
-        </tr>
-    }
+        <th>Id 
+            <a asp-page="/Customers" asp-route-searchWord="@Model.SearchWord"  asp-route-col="id" asp-route-order="asc" >
+                <i class='bx bx-sort-a-z'></i></a> 
+            <a asp-page="/Customers" asp-route-searchWord="@Model.SearchWord" asp-route-col="id" asp-route-order="desc" >    
+                <i class='bx bx-sort-z-a'></i></a>
+            </th>
+
+        <th>National Id 
+            <a asp-page="/Customers" asp-route-searchWord="@Model.SearchWord"  asp-route-col="nationalid" asp-route-order="asc" >
+                <i class='bx bx-sort-a-z'></i></a> 
+            <a asp-page="/Customers" asp-route-searchWord="@Model.SearchWord" asp-route-col="nationalid" asp-route-order="desc" >    
+                <i class='bx bx-sort-z-a'></i></a>
+            </th>
+
+        <th>Name 
+            <a asp-page="/Customers" asp-route-searchWord="@Model.SearchWord" asp-route-col="customerName" asp-route-order="asc" >
+                <i class='bx bx-sort-a-z'></i></a> 
+            <a asp-page="/Customers" asp-route-searchWord="@Model.SearchWord" asp-route-col="customerName" asp-route-order="desc" >    
+                <i class='bx bx-sort-z-a'></i></a>
+
+            </th>
+        <th>Surname 
+            <a asp-page="/Customers" asp-route-searchWord="@Model.SearchWord" asp-route-col="customerSurname" asp-route-order="asc" >
+                <i class='bx bx-sort-a-z'></i></a> 
+            <a asp-page="/Customers" asp-route-searchWord="@Model.SearchWord" asp-route-col="customerSurname" asp-route-order="desc" >    
+                <i class='bx bx-sort-z-a'></i></a>
+
+            </th>
+
+            <th>Address
+            <a asp-page="/Customers" asp-route-searchWord="@Model.SearchWord" asp-route-col="address" asp-route-order="asc" >
+                <i class='bx bx-sort-a-z'></i></a> 
+            <a asp-page="/Customers" asp-route-searchWord="@Model.SearchWord" asp-route-col="address" asp-route-order="desc" >    
+                <i class='bx bx-sort-z-a'></i></a>
+
+            </th>
+
+        <th>City 
+            <a asp-page="/Customers" asp-route-searchWord="@Model.SearchWord" asp-route-col="city" asp-route-order="asc" >
+                <i class='bx bx-sort-a-z'></i></a> 
+            <a asp-page="/Customers" asp-route-searchWord="@Model.SearchWord" asp-route-col="city" asp-route-order="desc" >    
+                <i class='bx bx-sort-z-a'></i></a>
+            </th>
+
+            @foreach (var customer in Model.Customers)
+            {
+                <tr>
+                    <td>@customer.Id</td>
+                    <td>@customer.PersonalId</td> @*add header and backend code for search & sorting*@
+                    <td>@customer.Givenname</td>
+                    <td>@customer.Surname</td>
+                    <td>@customer.Address</td> @*add header and backend code for search & sorting*@
+                    <td>@customer.City</td>
+                    <td><a asp-page="/CustomerDetails" asp-route-customerid="@customer.Id">Details</a></td>
+                </tr>
+            }
+
 </table>

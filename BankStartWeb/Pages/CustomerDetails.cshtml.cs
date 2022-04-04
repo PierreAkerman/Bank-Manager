@@ -16,6 +16,7 @@ namespace BankStartWeb.Pages
         public int Id { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
+        public string Fullname { get; set; }
         public string Streetaddress { get; set; }
         public string City { get; set; }
         public string Zipcode { get; set; }
@@ -48,6 +49,7 @@ namespace BankStartWeb.Pages
             EmailAddress = custDetails.EmailAddress;
             Birthday = custDetails.Birthday;
             Accounts = custDetails.Accounts;
+            Fullname = custDetails.Givenname + " " + custDetails.Surname;
 
             TotalSaldo = 0;
             foreach (var account in Accounts)

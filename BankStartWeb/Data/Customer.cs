@@ -21,5 +21,4 @@ public class Customer
     public DateTime Birthday { get; set; }
 
     public List<Account> Accounts { get; set; } = new List<Account>();
-
 }
