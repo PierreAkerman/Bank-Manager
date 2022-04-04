@@ -33,8 +33,8 @@ namespace BankStartWeb.Pages
         public decimal FinnishBalance { get; set; }
         public decimal NorweigianBalance { get; set; }
 
-        [BindProperty(SupportsGet = true)]
-        public int? SearchCustId { get; set; }
+        //[BindProperty(SupportsGet = true)]
+        //public int? SearchCustId { get; set; }
 
         //public IActionResult OnPost(int? searchCustId)
         //{

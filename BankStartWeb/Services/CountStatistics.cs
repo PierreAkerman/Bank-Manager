@@ -34,11 +34,11 @@ namespace BankStartWeb.Services
         public decimal CountryBalance(string country)
         {
             decimal tempContainer = 0;
-            var swedishAccountsBalance = _context.Customers
+            var countCountryBalance = _context.Customers
                 .Include(c => c.Accounts)
                 .Where(c => c.Country == country)
                 .SelectMany(c => c.Accounts);
-            foreach (var account in swedishAccountsBalance)
+            foreach (var account in countCountryBalance)
             {
                 tempContainer += account.Balance;
             }

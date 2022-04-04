@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BankStartWeb.Pages
 {
-    public class AccountsModel : PageModel
+    public class AccountDetailsModel : PageModel
     {
         private readonly ApplicationDbContext _context;
 
-        public AccountsModel(ApplicationDbContext context)
+        public AccountDetailsModel(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -39,15 +39,6 @@ namespace BankStartWeb.Pages
             Transactions = account.Transactions;
             CustomerId = accountDetails.Id;
 
-
-            //var accountDetails = _context.Accounts
-            //    .Include(c => c.Transactions.OrderByDescending(c => c.Date))
-            //    .First(e => e.Id == accountid);
-            //Id = accountDetails.Id;
-            //AccountType = accountDetails.AccountType;
-            //Created = accountDetails.Created;
-            //Balance = accountDetails.Balance;
-            //Transactions = accountDetails.Transactions;
         }
     }
 }
