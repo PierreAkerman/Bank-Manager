@@ -43,17 +43,17 @@ namespace BankStartWeb.Pages
                 TotalBalance += account.Balance;
             }
 
-            SwedishCustomers = _countStatistics.CountCustomers("Sverige");
-            FinnishCustomers = _countStatistics.CountCustomers("Finland");
-            NorweigianCustomers = _countStatistics.CountCustomers("Norge");
+            SwedishCustomers = _countStatistics.CountCustomers("se");
+            FinnishCustomers = _countStatistics.CountCustomers("fi");
+            NorweigianCustomers = _countStatistics.CountCustomers("no");
 
-            SwedishAccounts = _countStatistics.CountAccounts("Sverige");
-            FinnishAccounts = _countStatistics.CountAccounts("Finland");
-            NorweigianAccounts = _countStatistics.CountAccounts("Norge");
+            SwedishAccounts = _countStatistics.CountAccounts("se");
+            FinnishAccounts = _countStatistics.CountAccounts("fi");
+            NorweigianAccounts = _countStatistics.CountAccounts("no");
 
-            SwedishBalance = _countStatistics.CountryBalance("Sverige");
-            FinnishBalance = _countStatistics.CountryBalance("Finland");
-            NorweigianBalance = _countStatistics.CountryBalance("Norge");
+            SwedishBalance = _countStatistics.CountryBalance("se");
+            FinnishBalance = _countStatistics.CountryBalance("fi");
+            NorweigianBalance = _countStatistics.CountryBalance("no");
         }
     }
 }
