@@ -32,22 +32,6 @@ namespace BankStartWeb.Pages
         public decimal SwedishBalance { get; set; }
         public decimal FinnishBalance { get; set; }
         public decimal NorweigianBalance { get; set; }
-
-        //[BindProperty(SupportsGet = true)]
-        //public int? SearchCustId { get; set; }
-
-        //public IActionResult OnPost(int? searchCustId)
-        //{
-        //    var c = _context.Customers.AsQueryable();
-
-        //    if (searchCustId.HasValue)
-        //    {
-        //        var currentCustomer = c.Single(cust => cust.Id.Equals(searchCustId));
-        //        return RedirectToPage("/CustomerDetails", new { searchCustId = currentCustomer.Id });
-        //    }
-        //    return Page();
-        //}
-
         public void OnGet()
         {
             TotalAccounts = _context.Accounts.Count();
