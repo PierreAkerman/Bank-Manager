@@ -21,6 +21,7 @@ namespace BankStartWeb.Pages
         public string SortCol { get; set; }
         public int PageNo { get; set; }
         public int TotalPageCount { get; set; }
+
         public class CustomerViewModel
         {
             public int Id { get; set; }
@@ -33,31 +34,31 @@ namespace BankStartWeb.Pages
 
         public void OnGet(string searchWord, string col = "Id", string order = "asc", int pageno = 1)
         {
-            PageNo = pageno;
             SearchWord = searchWord;
             SortCol = col;
             SortOrder = order;
+            PageNo = pageno;
 
-            var c = _context.Customers.AsQueryable();
+            var customer = _context.Customers.AsQueryable();
             if (!string.IsNullOrEmpty(SearchWord))
-                c = c.Where(cust => cust.Givenname.Contains(SearchWord)
-                                     || cust.Surname.Contains(SearchWord)
-                                     || cust.City.Contains(SearchWord)
+                customer = customer.Where(cust => cust.Givenname.Contains(SearchWord)
+                                                ||cust.Surname.Contains(SearchWord)
+                                                ||cust.City.Contains(SearchWord)
                 );
 
-            c = c.OrderBy(col, order == "asc" ? ExtensionMethods.QuerySortOrder.Asc : ExtensionMethods.QuerySortOrder.Desc);
+            customer = customer.OrderBy(col, order == "asc" ? ExtensionMethods.QuerySortOrder.Asc : ExtensionMethods.QuerySortOrder.Desc);
 
-            var pageResult = c.GetPaged(PageNo, 20);
+            var pageResult = customer.GetPaged(PageNo, 50);
             TotalPageCount = pageResult.PageCount;
 
-            Customers = c.Take(30).Select(c => new CustomerViewModel
+            Customers = pageResult.Results.Select(customer => new CustomerViewModel
             {
-                Id = c.Id,
-                NationalId = c.NationalId,
-                Givenname = c.Givenname,
-                Surname = c.Surname,
-                Address = c.Streetaddress,
-                City = c.City,
+                Id = customer.Id,
+                NationalId = customer.NationalId,
+                Givenname = customer.Givenname,
+                Surname = customer.Surname,
+                Address = customer.Streetaddress,
+                City = customer.City
 
             }).ToList();
 

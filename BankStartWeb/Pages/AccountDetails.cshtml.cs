@@ -17,9 +17,9 @@ namespace BankStartWeb.Pages
         public string AccountType { get; set; }
         public DateTime Created { get; set; }
         public decimal Balance { get; set; }
+        public int CustomerId { get; set; }
         public string CustomerName { get; set; }
         public List<Transaction> Transactions { get; set; }
-        public int CustomerId { get; set; }
 
         public void OnGet(int accountid)
         {
