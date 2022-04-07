@@ -1,5 +1,5 @@
 ﻿@page
-@model BankStartWeb.Pages.CustomerDetailsModel
+@model BankStartWeb.Pages.Customers.CustomerDetailsModel
 @{
 }
 <h1>@Model.Fullname</h1>
@@ -69,7 +69,7 @@
     <tr>
         <th scope="row">@account.AccountType Account</th>
         <td>@account.Balance</td>
-        <td><a asp-page="/AccountDetails" asp-route-accountid="@account.Id">Details</a></td>
+        <td><a asp-page="/Accounts/AccountDetails" asp-route-accountid="@account.Id">Details</a></td>
     </tr>
     }
     <tr><th scope="row">Total Balance</th>
@@ -77,4 +77,4 @@
 
 </table>
 
-<a class="nav-link text-primary" asp-area="" asp-page="/Customers">Back</a>
+<a class="nav-link text-primary" asp-area="" asp-page="/Customers/CustomerList">Back</a>

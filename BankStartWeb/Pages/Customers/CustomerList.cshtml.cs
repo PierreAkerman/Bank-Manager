@@ -3,14 +3,14 @@ using BankStartWeb.Infrastructure.Paging;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace BankStartWeb.Pages
+namespace BankStartWeb.Pages.Customers
 {
-    public class CustomersModel : PageModel
+    public class CustomerListModel : PageModel
     {
         public List<CustomerViewModel> Customers = new();
         private readonly ApplicationDbContext _context;
 
-        public CustomersModel(ApplicationDbContext context)
+        public CustomerListModel(ApplicationDbContext context)
         {
             _context = context;
         }

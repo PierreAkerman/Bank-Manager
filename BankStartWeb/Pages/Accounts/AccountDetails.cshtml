@@ -1,5 +1,5 @@
 ﻿@page
-@model BankStartWeb.Pages.AccountDetailsModel
+@model BankStartWeb.Pages.Accounts.AccountDetailsModel
 @{
 }
 <h1>@Model.CustomerName</h1>
@@ -47,4 +47,4 @@
     }
 
     </table>
-    <a asp-page="/CustomerDetails" asp-route-customerid="@Model.CustomerId">Back</a>
+    <a asp-page="/Customers/CustomerDetails" asp-route-customerid="@Model.CustomerId">Back</a>
