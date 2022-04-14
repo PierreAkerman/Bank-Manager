@@ -16,6 +16,9 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
 builder.Services.AddRazorPages();
 builder.Services.AddTransient<DataInitializer>();
 builder.Services.AddTransient<ICountStatistics, CountStatistics>();
+
+builder.Services.AddTransient<ISetListsServices, SetListsServices>();
+
 var app = builder.Build();
 
 

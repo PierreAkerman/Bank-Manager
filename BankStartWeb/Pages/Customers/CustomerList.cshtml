@@ -3,13 +3,28 @@
 @{
 }
 
-<form method="GET">
+@*<form method="GET">
     <input asp-for="@Model.SearchWord" placeholder="Enter Name or City" />
     <input type="submit" value="Search" />
 </form>
 
-<a asp-page="/Customers/New">Add Customer</a>
-
+<button class="btn btn"><a asp-page="/Customers/New">Add Customer</a></button>*@
+<section>
+<div class="card">
+    <div class="card-header d-flex" style="justify-content:space-between">  @*TA BORT STYLE TAGS*@                    @*TA BORT STYLE TAGGAR*@
+        <div>
+            <h1>Customers</h1>
+        </div>
+        <div>
+            <form method="GET" style="margin-top:7px">   @*TA BORT STYLE TAGS*@                @*TA BORT STYLE TAGGAR*@
+                <input  asp-for="@Model.SearchWord" placeholder="Enter Name or City" />
+                <input class="btn btn-main-sm" type="submit" value="Search" />
+            </form>
+        </div>
+        <div>
+            <button style="margin-top:7px" class="btn btn-main"><a style="color:white" asp-page="/Customers/New">Add Customer</a></button>   @*TA BORT STYLE TAGGAR*@
+        </div>
+    </div>
 <table class="table">
     <tr>
         <th>Id 
@@ -65,7 +80,8 @@
                 <td>@customer.Surname</td>
                 <td>@customer.Address</td>
                 <td>@customer.City</td>
-                <td><a asp-page="/Customers/CustomerDetails" asp-route-customerid="@customer.Id">Details</a></td>
+                <td><a asp-page="/Customers/CustomerDetails" asp-route-customerid="@customer.Id">Details</a>
+                    <a asp-page="/Customers/Edit" asp-route-customerid="@customer.Id">Edit</a></td>
             </tr>
         }
     
@@ -85,3 +101,5 @@
             </td>
         </tr>
 </table>
+</div>
+</section>

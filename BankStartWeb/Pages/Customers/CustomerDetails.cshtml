@@ -3,6 +3,8 @@
 @{
 }
 <h1>@Model.Fullname</h1>
+<button class="btn btn-main-sm"><a asp-page="/Accounts/New" asp-route-customerId="@Model.Id">New Account</a></button>
+<button class="btn btn-main-sm"><a asp-page="/Customers/Edit" asp-route-customerid="@Model.Id">Edit Customer</a></button>
 <table class="table table-sm">
     <tr><th colspan="2" class="tableHeader">Personal Info</th></tr>
     <tr>

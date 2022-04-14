@@ -23,10 +23,9 @@
     </tr>
 </table>
 
-    <table class="table">
+    <table class="table" id="posts-table">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Transaction</th>
                 <th>Operation</th>
                 <th>Created</th>
@@ -34,7 +33,9 @@
                 <th>New Balance</th>
             </tr>
         </thead>
-    @foreach (var transaction in Model.Transactions)
+        <tbody>
+        </tbody>
+@*    @foreach (var transaction in Model.Transactions)
     {
         <tr>
             <td>@transaction.Id</td>
@@ -44,7 +45,55 @@
             <td>@transaction.Amount</td>
             <td>@transaction.NewBalance</td>
         </tr>
-    }
+    }*@
 
     </table>
+    <a class="btn" href="javascript:fetchMore();">See more</a>
     <a asp-page="/Customers/CustomerDetails" asp-route-customerid="@Model.CustomerId">Back</a>
+
+@section Scripts
+{
+<script>
+    pageNo = 1;
+    function fetchMore() {
+        fetch("AccountDetails?handler=FetchMore&pageNo=" + pageNo + "&accountid=@Model.Id")
+            .then((response) => response.json())
+            .then((json) => {
+                    pageNo = pageNo + 1;
+                    json.items.forEach(tableElements);
+                }
+            );
+    }
+
+
+    function tableElements(element) {
+        document.querySelector('#posts-table tbody').innerHTML +=
+            `<tr>
+    <td>${element.type}</td>
+    <td>${element.operation}</td>
+    <td>${element.date}</td>
+    <td>${element.amount}</td>
+    <td>${element.newBalance}</td>
+    
+    </tr>`;
+    }
+
+    
+    document.addEventListener("DOMContentLoaded", function () {
+        fetchMore();
+    });
+
+
+    function fetchEvaluation(id, elem) {
+        fetch("View?handler=FetchValue&id=" + id)
+            .then((response) => response.json())
+            .then((json) => {
+                    elem.innerHTML = json.value;
+                }
+        
+            );
+        
+    }
+
+</script>    
+}

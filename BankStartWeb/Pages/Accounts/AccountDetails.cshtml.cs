@@ -1,4 +1,5 @@
 using BankStartWeb.Data;
+using BankStartWeb.Infrastructure.Paging;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -21,6 +22,11 @@ namespace BankStartWeb.Pages.Accounts
         public string CustomerName { get; set; }
         public List<Transaction> Transactions { get; set; }
 
+
+        public IActionResult OnGetFetchValue(int id)
+        {
+            return new JsonResult(new { value = id * 1000 });
+        }
         public void OnGet(int accountid)
         {
             var customer = _context.Customers
@@ -37,6 +43,25 @@ namespace BankStartWeb.Pages.Accounts
             Created = account.Created;
             Balance = account.Balance;
             Transactions = account.Transactions;
+        }
+        public IActionResult OnGetFetchMore(int accountid, int pageNo)
+        {
+            var query = _context.Accounts.Where(e => e.Id == accountid)
+                .SelectMany(e => e.Transactions)
+                .OrderByDescending(e => e.Date);
+            var transaction = query.GetPaged(pageNo, 5);
+
+            var list = transaction.Results.Select(e => new
+            {
+                Type = e.Type,
+                Operation = e.Operation,
+                Date = e.Date.ToString("g"),
+                Amount = e.Amount,
+                NewBalance = e.NewBalance
+
+            }).ToList();
+
+            return new JsonResult(new { items = list });
         }
     }
 }
