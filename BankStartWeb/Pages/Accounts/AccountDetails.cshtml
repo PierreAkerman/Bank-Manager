@@ -4,6 +4,9 @@
 }
 <h1>@Model.CustomerName</h1>
 <h2>@Model.AccountType Account</h2>
+<a asp-page="/Transactions/New" asp-route-accountid="@Model.Id">New Transaction</a>
+<a asp-page="/Accounts/Deposit" asp-route-accountid="@Model.Id">Deposit</a>
+<a asp-page="/Accounts/Withdrawl" asp-route-accountid="@Model.Id">Withdrawl</a>
 <table class="table">
     <tr>
         <th>Account Id</th>
@@ -82,18 +85,6 @@
     document.addEventListener("DOMContentLoaded", function () {
         fetchMore();
     });
-
-
-    function fetchEvaluation(id, elem) {
-        fetch("View?handler=FetchValue&id=" + id)
-            .then((response) => response.json())
-            .then((json) => {
-                    elem.innerHTML = json.value;
-                }
-        
-            );
-        
-    }
 
 </script>    
 }

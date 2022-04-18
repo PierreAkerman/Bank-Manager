@@ -1,4 +1,5 @@
 using BankStartWeb.Data;
+using BankStartWeb.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -11,10 +12,13 @@ namespace BankStartWeb.Pages.Transactions
     public class NewModel : PageModel
     {
         private readonly ApplicationDbContext _context;
+        private readonly ISetListsService _setListsService;
 
-        public NewModel(ApplicationDbContext context)
+        public NewModel(ApplicationDbContext context,
+                        ISetListsService setListsService)
         {
             _context = context;
+            _setListsService = setListsService;
         }
         [MaxLength(10)]
         public string Type { get; set; }
@@ -39,6 +43,10 @@ namespace BankStartWeb.Pages.Transactions
 
             var account = customer.Accounts.First(a => a.Id == accountid);
 
+            AllTransactionTypes = _setListsService.SetAllTransactionTypes();
+            AllTransactionOps = _setListsService.SetAllTransactionOperations();
+            
+
         }
         public IActionResult OnPost(int accountid)
         {
@@ -51,8 +59,8 @@ namespace BankStartWeb.Pages.Transactions
 
             var transaction = new Transaction
             {
-                Type = Type,
-                Operation = Operation,
+                Type = TypeId,
+                Operation = OperationId,
                 Date = DateTime.Now,
                 Amount = Amount,
                 NewBalance = NewBalance

@@ -11,12 +11,12 @@ namespace BankStartWeb.Pages.Customers
     public class NewModel : PageModel
     {
         private readonly ApplicationDbContext _context;
-        private readonly ISetListsServices _setListsServices;
+        private readonly ISetListsService _setListsService;
 
-        public NewModel(ApplicationDbContext context, ISetListsServices setListsServices)
+        public NewModel(ApplicationDbContext context, ISetListsService setListsService)
         {
             _context = context;
-            _setListsServices = setListsServices;
+            _setListsService = setListsService;
         }
         [MaxLength(50)] public string Givenname { get; set; }
         [MaxLength(50)] public string Surname { get; set; }
@@ -39,9 +39,9 @@ namespace BankStartWeb.Pages.Customers
         public void OnGet()
         {
             Birthday = DateTime.Now;
-            AllCountries = _setListsServices.SetAllCountries();
-            AllCountryCodes = _setListsServices.SetAllCountryCodes();
-            AllTelCodes = _setListsServices.SetAllTelCodes();
+            AllCountries = _setListsService.SetAllCountries();
+            AllCountryCodes = _setListsService.SetAllCountryCodes();
+            AllTelCodes = _setListsService.SetAllTelCodes();
         }
 
         public IActionResult OnPost()
@@ -75,9 +75,9 @@ namespace BankStartWeb.Pages.Customers
                 _context.SaveChanges();
                 return RedirectToPage("CustomerList");
             }
-            AllCountries = _setListsServices.SetAllCountries();
-            AllCountryCodes = _setListsServices.SetAllCountryCodes();
-            AllTelCodes = _setListsServices.SetAllTelCodes();
+            AllCountries = _setListsService.SetAllCountries();
+            AllCountryCodes = _setListsService.SetAllCountryCodes();
+            AllTelCodes = _setListsService.SetAllTelCodes();
             return Page();
         }
     }

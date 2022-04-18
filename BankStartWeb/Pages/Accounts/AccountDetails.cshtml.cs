@@ -23,10 +23,10 @@ namespace BankStartWeb.Pages.Accounts
         public List<Transaction> Transactions { get; set; }
 
 
-        public IActionResult OnGetFetchValue(int id)
-        {
-            return new JsonResult(new { value = id * 1000 });
-        }
+        //public IActionResult OnGetFetchValue(int id)
+        //{
+        //    return new JsonResult(new { value = id * 1000 });
+        //}
         public void OnGet(int accountid)
         {
             var customer = _context.Customers
@@ -38,7 +38,7 @@ namespace BankStartWeb.Pages.Accounts
 
             CustomerId = customer.Id;
             CustomerName = customer.Givenname + " " + customer.Surname;
-            Id = account.Id;
+            Id = accountid;
             AccountType = account.AccountType;
             Created = account.Created;
             Balance = account.Balance;
@@ -53,11 +53,11 @@ namespace BankStartWeb.Pages.Accounts
 
             var list = transaction.Results.Select(e => new
             {
-                Type = e.Type,
-                Operation = e.Operation,
+                e.Type,
+                e.Operation,
                 Date = e.Date.ToString("g"),
-                Amount = e.Amount,
-                NewBalance = e.NewBalance
+                e.Amount,
+                e.NewBalance
 
             }).ToList();
 

@@ -10,12 +10,12 @@ namespace BankStartWeb.Pages
     public class IndexModel : PageModel
     {
         private readonly ApplicationDbContext _context;
-        private readonly ICountStatistics _countStatistics;
+        private readonly ICountStatisticsService _countStatisticsService;
 
-        public IndexModel(ApplicationDbContext context, ICountStatistics countStatistics)
+        public IndexModel(ApplicationDbContext context, ICountStatisticsService countStatisticsService)
         {
             _context = context;
-            _countStatistics = countStatistics;
+            _countStatisticsService = countStatisticsService;
         }
 
         public List<Account> Accounts { get; set; }
@@ -42,17 +42,17 @@ namespace BankStartWeb.Pages
                 TotalBalance += account.Balance;
             }
 
-            SwedishCustomers = _countStatistics.CountCustomers("se");
-            FinnishCustomers = _countStatistics.CountCustomers("fi");
-            NorweigianCustomers = _countStatistics.CountCustomers("no");
+            SwedishCustomers = _countStatisticsService.CountCustomers("se");
+            FinnishCustomers = _countStatisticsService.CountCustomers("fi");
+            NorweigianCustomers = _countStatisticsService.CountCustomers("no");
 
-            SwedishAccounts = _countStatistics.CountAccounts("se");
-            FinnishAccounts = _countStatistics.CountAccounts("fi");
-            NorweigianAccounts = _countStatistics.CountAccounts("no");
+            SwedishAccounts = _countStatisticsService.CountAccounts("se");
+            FinnishAccounts = _countStatisticsService.CountAccounts("fi");
+            NorweigianAccounts = _countStatisticsService.CountAccounts("no");
 
-            SwedishBalance = _countStatistics.CountryBalance("se");
-            FinnishBalance = _countStatistics.CountryBalance("fi");
-            NorweigianBalance = _countStatistics.CountryBalance("no");
+            SwedishBalance = _countStatisticsService.CountryBalance("se");
+            FinnishBalance = _countStatisticsService.CountryBalance("fi");
+            NorweigianBalance = _countStatisticsService.CountryBalance("no");
         }
     }
 }

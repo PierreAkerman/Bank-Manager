@@ -1,0 +1,21 @@
+﻿@page
+@model BankStartWeb.Pages.Accounts.WithdrawlModel
+@{
+}
+<div class="card">
+    <div class="card-header">
+        <h1>Withdrawl</h1>
+        <h2>@Model.Fullname</h2>
+    <h2>Account id:@Model.Id</h2>
+    <h2>Account Type:@Model.AccountType</h2>
+    <h2>@Model.Balance</h2>
+    </div>
+    <form method="post"> 
+        <div class="form-group">
+                <label asp-for="Amount">Amount</label>
+                <input class="form-control" asp-for="Amount" >
+                <span asp-validation-for="Amount" class="field-validation-error"></span>
+            </div>  
+            <button type="submit" class="btn">Make Withdrawl</button>
+    </form>
+</div>

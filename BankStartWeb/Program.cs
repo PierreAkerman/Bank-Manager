@@ -12,12 +12,14 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
+
 builder.Services.AddRazorPages();
 builder.Services.AddTransient<DataInitializer>();
-builder.Services.AddTransient<ICountStatistics, CountStatistics>();
+builder.Services.AddTransient<ICountStatisticsService, CountStatisticsService>();
 
-builder.Services.AddTransient<ISetListsServices, SetListsServices>();
+builder.Services.AddTransient<ISetListsService, SetListsService>();
 
 var app = builder.Build();
 

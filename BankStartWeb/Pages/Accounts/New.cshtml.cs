@@ -10,9 +10,9 @@ namespace BankStartWeb.Pages.Accounts
     public class NewModel : PageModel
     {
         private readonly ApplicationDbContext _context;
-        private readonly ISetListsServices _setListsServices;
+        private readonly ISetListsService _setListsServices;
 
-        public NewModel(ApplicationDbContext context, ISetListsServices setListsServices)
+        public NewModel(ApplicationDbContext context, ISetListsService setListsServices)
         {
             _context = context;
             _setListsServices = setListsServices;
