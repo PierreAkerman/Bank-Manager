@@ -4,10 +4,8 @@
     {
         public List<string> Operations = new()
         {
-            "Deposit cash",
             "Salary",
             "Transfer",
-            "ATM withdrawls",
             "Payment"
         };
     }
