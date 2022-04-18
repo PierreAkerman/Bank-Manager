@@ -103,7 +103,7 @@ namespace BankStartWeb.Services
         }
         public List<SelectListItem> SetAllTransactionOperations()
         {
-            var allOperations = new TransactionOperations().Operations.Select(c => new SelectListItem
+            var allOperations = Enum.GetValues<Operations>().Select(c => new SelectListItem
             {
                 Text = c.ToString(),
                 Value = c.ToString()

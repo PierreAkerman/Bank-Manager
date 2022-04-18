@@ -75,7 +75,7 @@ namespace BankStartWeb.Pages.Customers
                 customer.Birthday = Birthday;
 
                 _context.SaveChanges();
-                return RedirectToPage("CustomerList");
+                return RedirectToPage("CustomerDetails", new { customerid = customer.Id });
             }
             AllCountries = _setListsService.SetAllCountries();
             AllCountryCodes = _setListsService.SetAllCountryCodes();

@@ -73,7 +73,8 @@ namespace BankStartWeb.Pages.Customers
                
                 _context.Customers.Add(customer);
                 _context.SaveChanges();
-                return RedirectToPage("CustomerList");
+                int id = customer.Id;
+                return RedirectToPage("CustomerDetails", new { customerid = id });
             }
             AllCountries = _setListsService.SetAllCountries();
             AllCountryCodes = _setListsService.SetAllCountryCodes();

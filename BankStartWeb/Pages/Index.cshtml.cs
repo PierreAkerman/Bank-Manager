@@ -1,9 +1,6 @@
 ﻿using BankStartWeb.Data;
 using BankStartWeb.Services;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using System.Linq;
 
 namespace BankStartWeb.Pages
 {
@@ -37,7 +34,7 @@ namespace BankStartWeb.Pages
             TotalCustomers = _context.Customers.Count();
 
             Accounts = _context.Accounts.ToList();
-            foreach(var account in Accounts)
+            foreach (var account in Accounts)
             {
                 TotalBalance += account.Balance;
             }
