@@ -4,22 +4,16 @@
 }
 <div>
     <form method="post">
-        <div class="form-group">
-                <label asp-for="TargetAccount">Target Account</label>
-                <input class="form-control" asp-for="TargetAccount">
-                <span asp-validation-for="TargetAccount" class="field-validation-error"></span>
-            </div>
-            @*<div class="form-group">
-                <label asp-for="TypeId">Transaction Type</label>
-                <select class="form-control" asp-for="TypeId" asp-items="@Model.AllTransactionTypes" >
-                </select>
-                <span asp-validation-for="TypeId" class="field-validation-error"></span>
-            </div>*@
             <div class="form-group">
                 <label asp-for="OperationId">Operation Type</label>
                 <select class="form-control" asp-for="OperationId" asp-items="@Model.AllTransactionOps" >
                 </select>
                 <span asp-validation-for="OperationId" class="field-validation-error"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TargetAccount">Target Account</label>
+                <input class="form-control" asp-for="TargetAccount" placeholder="Only needed if Operation is Transfer">
+                <span asp-validation-for="TargetAccount" class="field-validation-error"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Amount">Amount</label>

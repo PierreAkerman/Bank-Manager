@@ -17,14 +17,14 @@
         </div>
         <div>
             <form method="GET" style="margin-top:7px">   @*TA BORT STYLE TAGS*@                @*TA BORT STYLE TAGGAR*@
-                <input  asp-for="@Model.SearchWord" placeholder="Enter Name or City" />
-                <input class="btn btn-main-sm" type="submit" value="Search" />
+                    <input asp-for="@Model.SearchWord" placeholder="Enter Name or City" />
+                    <input class="btn btn-main-sm" type="submit" value="Search" />
             </form>
         </div>
-        <div>
-            <button style="margin-top:7px" class="btn btn-main"><a style="color:white" asp-page="/Customers/New">Add Customer</a></button>   @*TA BORT STYLE TAGGAR*@
+        <div>            <button style="margin-top:7px" class="btn btn-main"><a style="color:white" asp-page="/Customers/New">Add Customer</a></button>   @*TA BORT STYLE TAGGAR*@
         </div>
     </div>
+
 <table class="table">
     <tr>
         <th>Id 
@@ -70,18 +70,18 @@
             <a asp-page="/Customers/CustomerList" asp-route-searchWord="@Model.SearchWord" asp-route-col="City" asp-route-order="desc" >    
                 <i class='bx bx-sort-z-a'></i></a>
             </th>
+            <th>Edit</th>
 
         @foreach (var customer in Model.Customers)
         {
             <tr>
                 <td>@customer.Id</td>
-                <td>@customer.NationalId</td>
+                <td><a asp-page="/Customers/CustomerDetails" asp-route-customerid="@customer.Id">@customer.NationalId</a></td>
                 <td>@customer.Givenname</td>
                 <td>@customer.Surname</td>
                 <td>@customer.Address</td>
                 <td>@customer.City</td>
-                <td><a asp-page="/Customers/CustomerDetails" asp-route-customerid="@customer.Id">Details</a>
-                    <a asp-page="/Customers/Edit" asp-route-customerid="@customer.Id">Edit</a></td>
+                <td><a asp-page="/Customers/Edit" asp-route-customerid="@customer.Id"><i class='bx bxs-edit'></i></a></td>
             </tr>
         }
     
@@ -92,8 +92,10 @@
                     <a asp-page="/Customers/CustomerList" asp-route-col="@Model.SortCol" asp-route-order="@Model.SortOrder" asp-route-searchWord="@Model.SearchWord" asp-route-pageno="@(Model.PageNo - 1)">Prev</a>
                 }
             </td>
-            <td> Visar sidan @Model.PageNo av totalt @Model.TotalPageCount  </td>
-            <td>
+
+            <td colspan="5" style="text-align:center">Showing page @Model.PageNo of @Model.TotalPageCount</td>  @*TA BORT STYLE-TAG*@
+
+            <td style="text-align:right">                                                                       @*TA BORT STYLE-TAG*@
                 @if (Model.PageNo < Model.TotalPageCount)
                 {
                     <a asp-page="/Customers/CustomerList" asp-route-col="@Model.SortCol" asp-route-order="@Model.SortOrder" asp-route-searchWord="@Model.SearchWord" asp-route-pageno="@(Model.PageNo + 1)">Next</a>

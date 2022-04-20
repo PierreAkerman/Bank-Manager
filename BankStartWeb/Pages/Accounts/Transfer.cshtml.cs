@@ -1,9 +1,11 @@
 using BankStartWeb.Data;
 using BankStartWeb.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+#nullable disable
 
 namespace BankStartWeb.Pages.Accounts
 {
@@ -12,8 +14,7 @@ namespace BankStartWeb.Pages.Accounts
         private readonly ApplicationDbContext _context;
         private readonly ISetListsService _setListsService;
 
-        public TransferModel(ApplicationDbContext context,
-                                ISetListsService setListsService)
+        public TransferModel(ApplicationDbContext context, ISetListsService setListsService)
         {
             _context = context;
             _setListsService = setListsService;
@@ -51,7 +52,6 @@ namespace BankStartWeb.Pages.Accounts
 
             var account = customer.Accounts.First(a => a.Id == accountid);
             
-
             if (OperationId == "Payment")
             {
                 var transaction = new Transaction
@@ -68,7 +68,7 @@ namespace BankStartWeb.Pages.Accounts
                 _context.SaveChanges();
                 return RedirectToPage("AccountDetails", new { accountid });
             }
-            else if (OperationId == "Salary")
+            if (OperationId == "Salary")
             {
                 var transaction = new Transaction
                 {
@@ -84,7 +84,7 @@ namespace BankStartWeb.Pages.Accounts
                 _context.SaveChanges();
                 return RedirectToPage("AccountDetails", new { accountid });
             }
-            else if (OperationId == "Transfer")
+            if (OperationId == "Transfer")
             {
                 var transaction = new Transaction
                 {

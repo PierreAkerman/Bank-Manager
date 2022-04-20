@@ -2,6 +2,7 @@ using BankStartWeb.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+#nullable disable
 
 namespace BankStartWeb.Pages.Customers
 {

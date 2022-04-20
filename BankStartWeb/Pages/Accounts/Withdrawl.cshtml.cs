@@ -2,6 +2,7 @@ using BankStartWeb.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+#nullable disable
 
 namespace BankStartWeb.Pages.Accounts
 {
@@ -13,23 +14,18 @@ namespace BankStartWeb.Pages.Accounts
         {
             _context = context;
         }
-        // AccountProps
         [BindProperty]
         public int Id { get; set; }
         [BindProperty]
         public decimal Balance { get; set; }
-        //[BindProperty]
         public string AccountType { get; set; }
         public List<Transaction> Transactions { get; set; }
-        // TransactionProps
         public string Type { get; set; }
         public string Operation { get; set; }
         public DateTime Date { get; set; }
         [BindProperty]
         public decimal Amount { get; set; }
         public decimal NewBalance { get; set; }
-        // CustomerProps
-        //[BindProperty]
         public string Fullname { get; set; }
         [BindProperty]
         public int CustomerId { get; set; }
@@ -76,7 +72,7 @@ namespace BankStartWeb.Pages.Accounts
                 account.Transactions.Add(transaction);
                 _context.SaveChanges();
 
-                return RedirectToPage("/Customers/CustomerList"); // Redirect to same account where the withdrawl was made!!!
+                return RedirectToPage("AccountDetails", new { accountid });
             }
             return Page();
         }

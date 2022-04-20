@@ -76,7 +76,7 @@ namespace BankStartWeb.Pages.Accounts
                 account.Transactions.Add(transaction);
                 _context.SaveChanges();
 
-                return RedirectToPage("/Customers/CustomerList"); // Redirect to AccountDetails för samma konto som Deposit gjordes!!!
+                return RedirectToPage("AccountDetails", new { accountid });
             }
             return Page();
         }
