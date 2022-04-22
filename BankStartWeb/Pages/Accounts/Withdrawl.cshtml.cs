@@ -27,7 +27,6 @@ namespace BankStartWeb.Pages.Accounts
         public decimal Amount { get; set; }
         public decimal NewBalance { get; set; }
         public string Fullname { get; set; }
-        [BindProperty]
         public int CustomerId { get; set; }
 
         public void OnGet(int accountid)
@@ -49,16 +48,27 @@ namespace BankStartWeb.Pages.Accounts
         }
         public IActionResult OnPost(int accountid, decimal amount)
         {
+            var customer = _context.Customers
+               .Include(c => c.Accounts)
+               .ThenInclude(c => c.Transactions.OrderByDescending(c => c.Date))
+               .First(c => c.Accounts.Any(a => a.Id == accountid));
+
+            var account = _context.Accounts
+                   .Include(a => a.Transactions)
+                   .First(a => a.Id == accountid);
+
+            Balance = account.Balance;
+
             if (amount <= 0)
             {
                 ModelState.AddModelError(nameof(amount), "You can only withdraw a positive amount!");
             }
+            if (amount > Balance)
+            {
+                ModelState.AddModelError(nameof(Balance), "Not enough money!");
+            }
             if (ModelState.IsValid)
             {
-                var account = _context.Accounts
-                   .Include(a => a.Transactions)
-                   .First(a => a.Id == accountid);
-
                 account.Balance -= amount;
 
                 var transaction = new Transaction

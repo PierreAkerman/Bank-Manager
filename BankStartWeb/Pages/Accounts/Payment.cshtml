@@ -1,15 +1,10 @@
 ﻿@page
-@model BankStartWeb.Pages.Accounts.TransferModel
+@model BankStartWeb.Pages.Accounts.PaymentModel
 @{
 }
-<h1>Transfer</h1>
+<h1>Payment</h1>
 <div>
     <form method="post">
-            <div class="form-group">
-                <label asp-for="TargetAccount">Target Account</label>
-                <input class="form-control" asp-for="TargetAccount" placeholder="Enter recipient account number">
-                <span asp-validation-for="TargetAccount" class="field-validation-error"></span>
-            </div>
             <div class="form-group">
                 <label asp-for="Amount">Amount</label>
                 <input class="form-control" asp-for="Amount">
@@ -18,5 +13,4 @@
             </div>
             <button type="submit" class="btn">Save</button>
     </form>
-    
 </div>

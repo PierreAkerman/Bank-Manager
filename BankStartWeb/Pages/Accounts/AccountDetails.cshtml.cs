@@ -22,11 +22,6 @@ namespace BankStartWeb.Pages.Accounts
         public string CustomerName { get; set; }
         public List<Transaction> Transactions { get; set; }
 
-
-        //public IActionResult OnGetFetchValue(int id)
-        //{
-        //    return new JsonResult(new { value = id * 1000 });
-        //}
         public void OnGet(int accountid)
         {
             var customer = _context.Customers

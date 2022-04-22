@@ -5,32 +5,28 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-#nullable disable
+
 
 namespace BankStartWeb.Pages.Accounts
 {
     public class TransferModel : PageModel
     {
         private readonly ApplicationDbContext _context;
-        private readonly ISetListsService _setListsService;
 
-        public TransferModel(ApplicationDbContext context, ISetListsService setListsService)
+        public TransferModel(ApplicationDbContext context)
         {
             _context = context;
-            _setListsService = setListsService;
         }
         [BindProperty]
-        public Account TargetAccount { get; set; }
+        public int TargetAccount { get; set; }
         public string TransactionType { get; set; }
         public string TransactionOperation { get; set; }
-        [BindProperty]
-        public string OperationId { get; set; }
         public DateTime Date { get; set; }
         [BindProperty]
         public decimal Amount { get; set; }
-        public decimal NewBalance { get; set; }
         [BindProperty]
-        public List<SelectListItem> AllTransactionOps { get; set; }
+        public decimal Balance { get; set; }
+        public decimal NewBalance { get; set; }
 
         public void OnGet(int accountid)
         {
@@ -41,9 +37,9 @@ namespace BankStartWeb.Pages.Accounts
 
             var account = customer.Accounts.First(a => a.Id == accountid);
 
-            AllTransactionOps = _setListsService.SetAllTransactionOperations();
+            Balance = account.Balance;
         }
-        public IActionResult OnPost(int accountid, decimal amount, int targetAccount)
+        public IActionResult OnPost(int accountid, decimal amount, int TargetAccount)
         {
             var customer = _context.Customers
                 .Include(c => c.Accounts)
@@ -51,70 +47,46 @@ namespace BankStartWeb.Pages.Accounts
                 .First(c => c.Accounts.Any(a => a.Id == accountid));
 
             var account = customer.Accounts.First(a => a.Id == accountid);
-            
-            if (OperationId == "Payment")
+
+            Balance = account.Balance;
+
+            if (amount <= 0)
+            {
+                ModelState.AddModelError(nameof(amount), "Enter a positive amount, please!");
+            }
+            if (amount > Balance)
+            {
+                ModelState.AddModelError(nameof(Balance), "Not enough money!");
+            }
+            if (ModelState.IsValid)
             {
                 var transaction = new Transaction
                 {
                     Type = "Credit",
-                    Operation = OperationId,
+                    Operation = "Transfer",
                     Date = DateTime.Now,
                     Amount = amount,
-                    NewBalance = account.Balance - amount,
+                    NewBalance = Balance - amount,
                 };
                 account.Balance -= amount;
                 account.Transactions.Add(transaction);
 
-                _context.SaveChanges();
-                return RedirectToPage("AccountDetails", new { accountid });
-            }
-            if (OperationId == "Salary")
-            {
-                var transaction = new Transaction
-                {
-                    Type = "Debit",
-                    Operation = OperationId,
-                    Date = DateTime.Now,
-                    Amount = amount,
-                    NewBalance = account.Balance + amount,
-                };
-                account.Balance += amount;
-                account.Transactions.Add(transaction);
-
-                _context.SaveChanges();
-                return RedirectToPage("AccountDetails", new { accountid });
-            }
-            if (OperationId == "Transfer")
-            {
-                var transaction = new Transaction
-                {
-                    Type = "Credit",
-                    Operation = OperationId,
-                    Date = DateTime.Now,
-                    Amount = amount,
-                    NewBalance = account.Balance - amount,
-                };
-                account.Balance -= amount;
-                account.Transactions.Add(transaction);
-
-                TargetAccount = _context.Accounts.First(a => a.Id == targetAccount);
+                var theTargetAccount = _context.Accounts.First(a => a.Id == TargetAccount);
 
                 var targetTransaction = new Transaction
                 {
                     Type = "Debit",
-                    Operation = OperationId,
+                    Operation = "Transfer",
                     Date = DateTime.Now,
                     Amount = amount,
-                    NewBalance = TargetAccount.Balance + amount,
-                }; 
-
-                TargetAccount.Balance += amount;
-                TargetAccount.Transactions.Add(targetTransaction);
+                    NewBalance = theTargetAccount.Balance + amount,
+                };
+                theTargetAccount.Balance += amount;
+                theTargetAccount.Transactions.Add(targetTransaction);
 
                 _context.SaveChanges();
                 return RedirectToPage("AccountDetails", new { accountid });
             }
-            AllTransactionOps = _setListsService.SetAllTransactionOperations();
             return Page();
         }
     }

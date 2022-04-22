@@ -1,0 +1,15 @@
+﻿@page
+@model BankStartWeb.Pages.Accounts.SalaryModel
+@{
+}
+<h1>Salary</h1>
+<div>
+    <form method="post">
+            <div class="form-group">
+                <label asp-for="Amount">Amount</label>
+                <input class="form-control" asp-for="Amount">
+                <span asp-validation-for="Amount" class="field-validation-error"></span>
+            </div>
+            <button type="submit" class="btn">Save</button>
+    </form>
+</div>

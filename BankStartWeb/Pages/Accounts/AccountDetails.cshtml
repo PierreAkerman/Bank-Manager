@@ -7,7 +7,18 @@
 
 <a asp-page="/Accounts/Deposit" asp-route-accountid="@Model.Id">Deposit</a>
 <a asp-page="/Accounts/Withdrawl" asp-route-accountid="@Model.Id">Withdrawl</a>
+<a asp-page="/Accounts/Payment" asp-route-accountid="@Model.Id">Payment</a>
+<a asp-page="/Accounts/Salary" asp-route-accountid="@Model.Id">Salary</a>
 <a asp-page="/Accounts/Transfer" asp-route-accountid="@Model.Id">Transfer</a>
+
+@*<div class="form-group">
+                <label asp-for="OperationId">Select Transfer Operation</label>
+                <select class="form-control" asp-for="OperationId" asp-items="@Model.AllTransactionOps" >
+                </select>
+                <span asp-validation-for="OperationId" class="field-validation-error"></span>
+            </div>*@
+
+
 
 <table class="table">
     <tr>
