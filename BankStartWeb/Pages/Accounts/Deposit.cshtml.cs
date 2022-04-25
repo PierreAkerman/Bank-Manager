@@ -50,16 +50,27 @@ namespace BankStartWeb.Pages.Accounts
         }
         public IActionResult OnPost(int accountid, decimal amount)
         {
+            var customer = _context.Customers
+                .Include(c => c.Accounts)
+                .ThenInclude(c => c.Transactions.OrderByDescending(c => c.Date))
+                .First(c => c.Accounts.Any(a => a.Id == accountid));
+
+            var account = _context.Accounts
+                .Include(a => a.Transactions)
+                .First(a => a.Id == accountid);
+
+            Id = account.Id;
+            CustomerId = customer.Id;
+            Fullname = customer.Givenname + " " + customer.Surname;
+            AccountType = account.AccountType;
+            Balance = account.Balance;
+
             if (amount <= 0)
             {
                 ModelState.AddModelError(nameof(amount), "You can only deposit a positive amount!");
             }
             if (ModelState.IsValid)
             {
-                var account = _context.Accounts
-                   .Include(a => a.Transactions)
-                   .First(a => a.Id == accountid);
-
                 account.Balance += amount;
 
                 var transaction = new Transaction

@@ -32,8 +32,8 @@
         <td>@Model.Country</td>
     </tr>
     </table>
-    <table class="table table-sm">
-        <tr><th colspan="2" class="tableHeader">Contact Info</th></tr>
+<table class="table table-sm">
+    <tr><th colspan="2" class="tableHeader">Contact Info</th></tr>
     <tr>
         <th scope="row">Address</th>
         <td>@Model.Streetaddress</td>
@@ -62,21 +62,23 @@
         <th scope="row">Email</th>
         <td>@Model.EmailAddress</td>
     </tr>
-    </table>
-    <table class="table table-sm">
+</table>
+
+
+<table class="table table-sm">
+
     <tr><th colspan="2" class="tableHeader">Accounts</th></tr>
 
     @foreach (var account in Model.Accounts)
     {
-    <tr>
-        <th scope="row">@account.AccountType Account</th>
-        <td>@account.Balance</td>
-        <td><a asp-page="/Accounts/AccountDetails" asp-route-accountid="@account.Id">Details</a></td>
-    </tr>
+        <tr>
+            <td> <a asp-page="/Accounts/AccountDetails" asp-route-accountid="@account.Id">@account.AccountType Account</a></td>
+            <td>@account.Balance</td>
+            @*<td><a asp-page="/Accounts/AccountDetails" asp-route-accountid="@account.Id">Details</a></td>*@
+        </tr>
     }
     <tr><th scope="row">Total Balance</th>
-    <td>@Model.TotalSaldo</td></tr>
-
+        <td>@Model.TotalSaldo</td></tr>
 </table>
 
 <a class="nav-link text-primary" asp-page="/Customers/CustomerList">Back</a>

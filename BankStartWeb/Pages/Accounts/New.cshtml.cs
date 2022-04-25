@@ -17,12 +17,12 @@ namespace BankStartWeb.Pages.Accounts
             _context = context;
             _setListsServices = setListsServices;
         }
-        public int Id { get; set; }
         [BindProperty]
         public string AccountTypeId { get; set; }
         public DateTime Created { get; set; }
-        public decimal Balance { get; set; }
         public string Fullname { get; set; }
+        [BindProperty]
+        public int CustomerId { get; set; }
 
         public List<Transaction> Transactions { get; set; }
         [BindProperty]
@@ -30,18 +30,21 @@ namespace BankStartWeb.Pages.Accounts
         public void OnGet(int customerId)
         {
             var customer = _context.Customers.First(c => c.Id == customerId);
+
+            CustomerId = customer.Id;
             Fullname = customer.Givenname + " " + customer.Surname;
             AllAccountTypes = _setListsServices.SetAllAccountTypes();
         }
         public IActionResult OnPost(int customerId)
         {
+            var customer = _context.Customers.First(c => c.Id == customerId);
+
+            CustomerId = customer.Id;
+            Fullname = customer.Givenname + " " + customer.Surname;
+            AllAccountTypes = _setListsServices.SetAllAccountTypes();
+
             if (ModelState.IsValid)
             {
-                var customer = _context.Customers.First(c => c.Id == customerId);
-                if (customer == null)
-                {
-                    return NotFound();
-                }
                 var account = new Account();
                 {
                     account.AccountType = AccountTypeId;

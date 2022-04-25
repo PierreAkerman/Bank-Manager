@@ -57,6 +57,10 @@ namespace BankStartWeb.Pages.Accounts
                    .Include(a => a.Transactions)
                    .First(a => a.Id == accountid);
 
+            Id = account.Id;
+            CustomerId = customer.Id;
+            Fullname = customer.Givenname + " " + customer.Surname;
+            AccountType = account.AccountType;
             Balance = account.Balance;
 
             if (amount <= 0)

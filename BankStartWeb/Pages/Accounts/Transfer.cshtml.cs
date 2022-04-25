@@ -27,6 +27,11 @@ namespace BankStartWeb.Pages.Accounts
         [BindProperty]
         public decimal Balance { get; set; }
         public decimal NewBalance { get; set; }
+        [BindProperty]
+        public int Id { get; set; }
+        public int CustomerId { get; set; }
+        public string Fullname { get; set; }
+        public string AccountType { get; set; }
 
         public void OnGet(int accountid)
         {
@@ -37,6 +42,10 @@ namespace BankStartWeb.Pages.Accounts
 
             var account = customer.Accounts.First(a => a.Id == accountid);
 
+            Id = account.Id;
+            CustomerId = customer.Id;
+            Fullname = customer.Givenname + " " + customer.Surname;
+            AccountType = account.AccountType;
             Balance = account.Balance;
         }
         public IActionResult OnPost(int accountid, decimal amount, int TargetAccount)
@@ -48,6 +57,10 @@ namespace BankStartWeb.Pages.Accounts
 
             var account = customer.Accounts.First(a => a.Id == accountid);
 
+            Id = account.Id;
+            CustomerId = customer.Id;
+            Fullname = customer.Givenname + " " + customer.Surname;
+            AccountType = account.AccountType;
             Balance = account.Balance;
 
             if (amount <= 0)

@@ -2,7 +2,55 @@
 @model BankStartWeb.Pages.Accounts.TransferModel
 @{
 }
-<h1>Transfer</h1>
+
+<section class="contact-us section bg-gray" id="contact">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="title text-center">
+                    <h4>Operation</h4>
+                    <h2>Transfer</h2>
+                    <span class="border"></span>
+                    <h5 class="text-info">@Model.Fullname</h5>
+                    <h5 class="text-info">@Model.AccountType Account</h5>
+                    <h5 class="text-info">@Model.Balance $</h5>
+                    <span class="border"></span>
+                    <p>Enter the account number of the receiving account,</p>
+                    <p>Enter the amount to be Transferred</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <!-- Contact Form -->
+            <div class="contact-form col-12 col-md-6  mx-auto" >
+                <form id="contact-form" method="post">
+                    <div class="form-group">
+                        <label asp-for="TargetAccount">Receiving Account</label>
+                        <input class="form-control" asp-for="TargetAccount">
+                        <span asp-validation-for="TargetAccount" class="field-validation-error"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Amount">Amount</label>
+                        <input class="form-control" asp-for="Amount">
+                        <span asp-validation-for="Amount" class="field-validation-error"></span>
+                        <span asp-validation-for="Balance" class="field-validation-error"></span>
+                    </div>
+                    <div>
+                        <input type="submit" id="contact-submit" class="btn btn-transparent mb-1" value="Transfer">
+                    </div>						
+                </form>
+                <a class="btn" id="contact-submit"  asp-page="/Accounts/AccountDetails" asp-route-accountid="@Model.Id">Back to @Model.AccountType Account</a>
+            </div>
+            <!-- ./End Contact Form -->
+        </div> <!-- end row -->
+			
+    </div> <!-- end container -->
+</section> <!-- end section -->
+
+
+
+
+@*<h1>Transfer</h1>
 <div>
     <form method="post">
             <div class="form-group">
@@ -18,5 +66,4 @@
             </div>
             <button type="submit" class="btn">Save</button>
     </form>
-    
-</div>
+</div>*@

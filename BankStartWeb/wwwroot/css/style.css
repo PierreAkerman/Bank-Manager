@@ -1010,14 +1010,14 @@ a:focus, a:hover {
 }
 
 .contact-form #contact-submit {
-  border: none;
-  padding: 15px 0;
-  width: 100%;
-  margin: 0;
-  background: #31BB9E;
-  color: #fff;
-  border-radius: 0;
-  cursor: pointer;
+    border: none;
+    padding: 15px 0;
+    width: 100%;
+    margin: 0;
+    background: #31BB9E;
+    color: #fff;
+    border-radius: 0;
+    cursor: pointer;
 }
 
 .contact-form textarea.form-control {
