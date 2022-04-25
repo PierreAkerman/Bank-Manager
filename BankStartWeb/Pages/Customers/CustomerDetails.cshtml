@@ -2,6 +2,120 @@
 @model BankStartWeb.Pages.Customers.CustomerDetailsModel
 @{
 }
+
+<div class="container">
+<h1 class="title">@Model.Fullname</h1>
+    <div class="d-flex flex-row">
+    
+        <div class="card d-flex mx-auto" style="width: 30rem;">
+            <div class="card-body">
+                <div class="text-center">
+                    <h2>Personal Info</h2>
+                </div>
+
+                <table class="table">
+                    <tr>
+                        <th>Id</th>
+                        <td>@Model.Id</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Name</th>
+                        <td>@Model.Name</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Surname</th>
+                        <td>@Model.Surname</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">National Id</th>
+                        <td>@Model.NationalId</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Birthday</th>
+                        <td>@Model.Birthday.ToString("d")</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Country</th>
+                        <td>@Model.Country</td>
+                    </tr>
+
+                </table>
+
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+
+        <div class="card d-flex mx-auto" style="width: 30rem;">
+            <div class="card-body">
+                <div class="text-center">
+                    <h2>Contact Info</h2>
+                </div>
+                <table class="table">
+                    <tr>
+                        <th scope="row">Address</th>
+                        <td>@Model.Streetaddress</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">City</th>
+                        <td>@Model.City</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Zip-Code</th>
+                        <td>@Model.Zipcode</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Country Code</th>
+                        <td>@Model.CountryCode</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Tel Country Code</th>
+                        <td>@Model.TelephoneCountryCode</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Telephone</th>
+                        <td>@Model.Telephone</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Email</th>
+                        <td>@Model.EmailAddress</td>
+                    </tr>
+                </table>
+
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+    
+
+
+    </div>
+    <div class="card d-flex mx-auto" style="width: max-content;">
+        <div class="card-body">
+            <div class="text-center">
+                <h2>Accounts</h2>
+            </div>
+            <table class="table">
+
+                @foreach (var account in Model.Accounts)
+                {
+                    <tr>
+                        <td> <a asp-page="/Accounts/AccountDetails" asp-route-accountid="@account.Id">@account.AccountType Account</a></td>
+                        <td>@account.Balance</td>
+                        @*<td><a asp-page="/Accounts/AccountDetails" asp-route-accountid="@account.Id">Details</a></td>*@
+                    </tr>
+                }
+                <tr><th scope="row">Total Balance</th>
+                    <td>@Model.TotalSaldo</td></tr>
+            </table>
+
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+    </div>
+</div>
+
+
+
+
+
 <h1>@Model.Fullname</h1>
 <button class="btn btn-main-sm"><a asp-page="/Accounts/New" asp-route-customerId="@Model.Id">New Account</a></button>
 <button class="btn btn-main-sm"><a asp-page="/Customers/Edit" asp-route-customerid="@Model.Id">Edit Customer</a></button>
