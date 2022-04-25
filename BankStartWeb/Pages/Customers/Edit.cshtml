@@ -20,38 +20,32 @@
         <div class="row">
             <!-- Contact Form -->
             <div class="contact-form col-12 col-md-6  mx-auto" >
-                <form id="contact-form" method="post"  role="form">
-					
+                <form id="contact-form" method="post">
                     <div class="form-group">
                         <label asp-for="Givenname">Name</label>
                         <input class="form-control" asp-for="Givenname">
                         <span asp-validation-for="Givenname" class="field-validation-error"></span>
                     </div>
-						
                     <div class="form-group">
                         <label asp-for="Surname">Surname</label>
                         <input class="form-control" asp-for="Surname">
                         <span asp-validation-for="Surname" class="field-validation-error"></span>
                     </div>
-						
                     <div class="form-group">
                         <label asp-for="Streetaddress">Streetaddress</label>
                         <input class="form-control" asp-for="Streetaddress">
                         <span asp-validation-for="Streetaddress" class="field-validation-error"></span>
                     </div>
-						
                     <div class="form-group">
                         <label asp-for="City">City</label>
                         <input class="form-control" asp-for="City">
                         <span asp-validation-for="City" class="field-validation-error"></span>
                     </div>
-                    
                     <div class="form-group">
                         <label asp-for="Zipcode">Zipcode</label>
                         <input class="form-control" asp-for="Zipcode">
                         <span asp-validation-for="Zipcode" class="field-validation-error"></span>
                     </div>
-                    
                     <div class="form-group">
                         <label asp-for="CountryId">Country</label>
                         <select class="form-control" asp-for="CountryId" asp-items="@Model.AllCountries" >
@@ -96,7 +90,7 @@
                     </div>						
 						
                 </form>
-                <a class="btn" id="contact-submit"  asp-page="/CustomerList" >Back to List</a>
+                <a class="btn" id="contact-submit" asp-page="/Customers/CustomerList" >Back to List</a>
             </div>
             <!-- ./End Contact Form -->
         </div> <!-- end row -->
