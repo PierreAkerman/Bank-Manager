@@ -35,7 +35,7 @@ namespace BankStartWeb.Pages.Accounts
         {
             var customer = _context.Customers
                 .Include(c => c.Accounts)
-                .ThenInclude(c => c.Transactions.OrderByDescending(c => c.Date))
+                .ThenInclude(c => c.Transactions)
                 .First(c => c.Accounts.Any(a => a.Id == accountid));
 
             var account = _context.Accounts
@@ -52,7 +52,7 @@ namespace BankStartWeb.Pages.Accounts
         {
             var customer = _context.Customers
                 .Include(c => c.Accounts)
-                .ThenInclude(c => c.Transactions.OrderByDescending(c => c.Date))
+                .ThenInclude(c => c.Transactions)
                 .First(c => c.Accounts.Any(a => a.Id == accountid));
 
             var account = _context.Accounts
