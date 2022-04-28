@@ -1,4 +1,5 @@
 using BankStartWeb.Data;
+using BankStartWeb.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -8,10 +9,12 @@ namespace BankStartWeb.Pages.Accounts
     public class DepositModel : PageModel
     {
         private readonly ApplicationDbContext _context;
+        private readonly ITransactionService _transactionService;
 
-        public DepositModel(ApplicationDbContext context)
+        public DepositModel(ApplicationDbContext context, ITransactionService transactionService)
         {
             _context = context;
+            _transactionService = transactionService;
         }
 
         // AccountProps
@@ -59,34 +62,24 @@ namespace BankStartWeb.Pages.Accounts
                 .Include(a => a.Transactions)
                 .First(a => a.Id == accountid);
 
+            Balance = account.Balance;
+
+            if (ModelState.IsValid)
+            {
+                var result = _transactionService.MakeDeposit(accountid, amount);
+
+                if(result == ITransactionService.TransactionStatus.Ok)
+                    return RedirectToPage("AccountDetails", new { accountid });
+                else if (result == ITransactionService.TransactionStatus.NotPositiveAmount)
+                {
+                    ModelState.AddModelError(nameof(amount), "You can only deposit a positive amount!");
+                }
+            }
             Id = account.Id;
             CustomerId = customer.Id;
             Fullname = customer.Givenname + " " + customer.Surname;
             AccountType = account.AccountType;
             Balance = account.Balance;
-
-            if (amount <= 0)
-            {
-                ModelState.AddModelError(nameof(amount), "You can only deposit a positive amount!");
-            }
-            if (ModelState.IsValid)
-            {
-                account.Balance += amount;
-
-                var transaction = new Transaction
-                {
-                    Type = "Debit",
-                    Operation = "Deposit cash",
-                    Date = DateTime.Now,
-                    Amount = amount,
-                    NewBalance = account.Balance,
-                };
-
-                account.Transactions.Add(transaction);
-                _context.SaveChanges();
-
-                return RedirectToPage("AccountDetails", new { accountid });
-            }
             return Page();
         }
     }

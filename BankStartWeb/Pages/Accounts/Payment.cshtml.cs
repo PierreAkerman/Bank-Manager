@@ -11,10 +11,12 @@ namespace BankStartWeb.Pages.Accounts
     public class PaymentModel : PageModel
     {
         private readonly ApplicationDbContext _context;
+        private readonly ITransactionService _transactionService;
 
-        public PaymentModel(ApplicationDbContext context)
+        public PaymentModel(ApplicationDbContext context, ITransactionService transactionService)
         {
             _context = context;
+            _transactionService = transactionService;
         }
         [BindProperty]
         public int Id { get; set; }
@@ -52,37 +54,31 @@ namespace BankStartWeb.Pages.Accounts
                 .ThenInclude(c => c.Transactions)
                 .First(c => c.Accounts.Any(a => a.Id == accountid));
 
-            var account = customer.Accounts.First(a => a.Id == accountid);
+            var account = _context.Accounts.First(a => a.Id == accountid);
 
+            Balance = account.Balance;
+
+            if (ModelState.IsValid)
+            {
+                var result = _transactionService.MakePayment(accountid, amount);
+
+                if(result == ITransactionService.TransactionStatus.Ok)
+                    return RedirectToPage("AccountDetails", new { accountid });
+
+                else if (result == ITransactionService.TransactionStatus.NotPositiveAmount)
+                {
+                    ModelState.AddModelError(nameof(amount), "Enter a positive amount, please!");
+                }
+                else if (result == ITransactionService.TransactionStatus.InsufficientBalance)
+                {
+                    ModelState.AddModelError(nameof(Balance), "Not enough money!");
+                }
+            }
             Id = account.Id;
             CustomerId = customer.Id;
             Fullname = customer.Givenname + " " + customer.Surname;
             AccountType = account.AccountType;
             Balance = account.Balance;
-
-            if (amount <= 0)
-            {
-                ModelState.AddModelError(nameof(amount), "Enter a positive amount, please!");
-            }
-            if (amount > Balance)
-            {
-                ModelState.AddModelError(nameof(Balance), "Not enough money!");
-            }
-            if (ModelState.IsValid)
-            {
-                var transaction = new Transaction
-                {
-                    Type = "Credit",
-                    Operation = "Payment",
-                    Date = DateTime.Now,
-                    Amount = amount,
-                    NewBalance = Balance - amount,
-                };
-                account.Balance -= amount;
-                account.Transactions.Add(transaction);
-                _context.SaveChanges();
-                return RedirectToPage("AccountDetails", new { accountid });
-            }
             return Page();  
         }
     }

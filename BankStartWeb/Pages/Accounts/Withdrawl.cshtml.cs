@@ -1,18 +1,22 @@
+
+#nullable disable
+
 using BankStartWeb.Data;
+using BankStartWeb.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-#nullable disable
-
 namespace BankStartWeb.Pages.Accounts
 {
     public class WithdrawlModel : PageModel
     {
         private readonly ApplicationDbContext _context;
+        private readonly ITransactionService _transactionService;
 
-        public WithdrawlModel(ApplicationDbContext context)
+        public WithdrawlModel(ApplicationDbContext context, ITransactionService transactionService)
         {
             _context = context;
+            _transactionService = transactionService;
         }
         [BindProperty]
         public int Id { get; set; }
@@ -57,37 +61,29 @@ namespace BankStartWeb.Pages.Accounts
                    .Include(a => a.Transactions)
                    .First(a => a.Id == accountid);
 
+            Balance = account.Balance;
+
+            if (ModelState.IsValid)
+            {
+                var result = _transactionService.MakeWithdrawl(accountid, amount);
+
+                if(result == ITransactionService.TransactionStatus.Ok)
+                    return RedirectToPage("AccountDetails", new { accountid });
+
+                else if (result == ITransactionService.TransactionStatus.NotPositiveAmount)
+                {
+                    ModelState.AddModelError(nameof(amount), "You can only withdraw a positive amount!");
+                }
+                else if (result == ITransactionService.TransactionStatus.InsufficientBalance)
+                {
+                    ModelState.AddModelError(nameof(Balance), "Not enough money!");
+                }
+            }
             Id = account.Id;
             CustomerId = customer.Id;
             Fullname = customer.Givenname + " " + customer.Surname;
             AccountType = account.AccountType;
             Balance = account.Balance;
-
-            if (amount <= 0)
-            {
-                ModelState.AddModelError(nameof(amount), "You can only withdraw a positive amount!");
-            }
-            if (amount > Balance)
-            {
-                ModelState.AddModelError(nameof(Balance), "Not enough money!");
-            }
-            if (ModelState.IsValid)
-            {
-                account.Balance -= amount;
-
-                var transaction = new Transaction
-                {
-                    Type = "Credit",
-                    Operation = "ATM withdrawls",
-                    Date = DateTime.Now,
-                    Amount = amount,
-                    NewBalance = account.Balance,
-                };
-                account.Transactions.Add(transaction);
-                _context.SaveChanges();
-
-                return RedirectToPage("AccountDetails", new { accountid });
-            }
             return Page();
         }
     }
