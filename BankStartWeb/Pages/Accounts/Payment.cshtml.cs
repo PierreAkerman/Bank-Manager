@@ -21,6 +21,7 @@ namespace BankStartWeb.Pages.Accounts
         [BindProperty]
         public int Id { get; set; }
         public string AccountType { get; set; }
+        [BindProperty]
         public decimal Balance  { get; set; }
         public string Type { get; set; }
         public string Operation { get; set; }
