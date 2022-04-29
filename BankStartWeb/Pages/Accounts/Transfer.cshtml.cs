@@ -66,7 +66,7 @@ namespace BankStartWeb.Pages.Accounts
                     case ITransactionService.TransactionStatus.Ok:
                         return RedirectToPage("AccountDetails", new { accountid });
                     case ITransactionService.TransactionStatus.NotPositiveAmount:
-                        ModelState.AddModelError(nameof(amount), "You can only withdraw a positive amount!");
+                        ModelState.AddModelError(nameof(amount), "You can only transfer a positive amount!");
                         break;
                     case ITransactionService.TransactionStatus.InsufficientBalance:
                         ModelState.AddModelError(nameof(Balance), "Not enough money!");
