@@ -42,7 +42,7 @@ namespace UnitTests.Services
                 NationalId = "19900102-1234",
                 TelephoneCountryCode = 46,
                 Telephone = "0707070707",
-                EmailAddress = "kalle@anka@hotmail.com",
+                EmailAddress = "kalle.anka@hotmail.com",
                 Birthday = DateTime.Now,
                 Accounts = new List<Account>(),
             });
@@ -73,7 +73,7 @@ namespace UnitTests.Services
                 NationalId = "19900102-1234",
                 TelephoneCountryCode = 46,
                 Telephone = "0707070707",
-                EmailAddress = "kalle@anka@hotmail.com",
+                EmailAddress = "kalle.anka@hotmail.com",
                 Birthday = DateTime.Now,
                 Accounts = new List<Account>(),
             });
@@ -104,7 +104,7 @@ namespace UnitTests.Services
                 NationalId = "19900102-1234",
                 TelephoneCountryCode = 46,
                 Telephone = "0707070707",
-                EmailAddress = "kalle@anka@hotmail.com",
+                EmailAddress = "kalle.anka@hotmail.com",
                 Birthday = DateTime.Now,
                 Accounts = new List<Account>(),
             });
@@ -135,7 +135,7 @@ namespace UnitTests.Services
                 NationalId = "19900102-1234",
                 TelephoneCountryCode = 46,
                 Telephone = "0707070707",
-                EmailAddress = "kalle@anka@hotmail.com",
+                EmailAddress = "kalle.anka@hotmail.com",
                 Birthday = DateTime.Now,
                 Accounts = new List<Account>(),
             });
@@ -166,7 +166,7 @@ namespace UnitTests.Services
                 NationalId = "19900102-1234",
                 TelephoneCountryCode = 46,
                 Telephone = "0707070707",
-                EmailAddress = "kalle@anka@hotmail.com",
+                EmailAddress = "kalle.anka@hotmail.com",
                 Birthday = DateTime.Now,
                 Accounts = new List<Account>(),
             });
@@ -197,7 +197,7 @@ namespace UnitTests.Services
                 NationalId = "19900102-1234",
                 TelephoneCountryCode = 46,
                 Telephone = "0707070707",
-                EmailAddress = "kalle@anka@hotmail.com",
+                EmailAddress = "kalle.anka@hotmail.com",
                 Birthday = DateTime.Now,
                 Accounts = new List<Account>(),
             });
@@ -235,7 +235,7 @@ namespace UnitTests.Services
                 NationalId = "19900102-1234",
                 TelephoneCountryCode = 46,
                 Telephone = "0707070707",
-                EmailAddress = "kalle@anka@hotmail.com",
+                EmailAddress = "kalle.anka@hotmail.com",
                 Birthday = DateTime.Now,
                 Accounts = new List<Account>(),
             });
@@ -273,7 +273,7 @@ namespace UnitTests.Services
                 NationalId = "19900102-1234",
                 TelephoneCountryCode = 46,
                 Telephone = "0707070707",
-                EmailAddress = "kalle@anka@hotmail.com",
+                EmailAddress = "kalle.anka@hotmail.com",
                 Birthday = DateTime.Now,
                 Accounts = new List<Account>(),
             });
