@@ -37,8 +37,6 @@ namespace BankStartWeb.Pages.Customers
                 .Include(c => c.Accounts.OrderByDescending(c => c.Created))
                 .First(c => c.Id == customerid);
 
-
-
             Id = custDetails.Id;
             Name = custDetails.Givenname;
             Surname = custDetails.Surname;

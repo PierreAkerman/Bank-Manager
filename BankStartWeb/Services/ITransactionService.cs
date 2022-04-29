@@ -12,7 +12,8 @@
         {
             Ok,
             NotPositiveAmount,
-            InsufficientBalance
+            InsufficientBalance,
+            IncorrectTargetAccountId,
         }
     }
 }

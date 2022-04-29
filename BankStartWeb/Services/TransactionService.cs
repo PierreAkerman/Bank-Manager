@@ -128,6 +128,8 @@ namespace BankStartWeb.Services
             };
             account.Transactions.Add(transaction);
 
+            if (CheckTargetAccountId(targetAccountId) == false)
+                return ITransactionService.TransactionStatus.IncorrectTargetAccountId;
             var targetAccount = _context.Accounts.First(a => a.Id == targetAccountId);
             targetAccount.Balance += amount;
 
@@ -156,6 +158,14 @@ namespace BankStartWeb.Services
         {
             var account = _context.Accounts.First(a => a.Id == accountid);
             if (amount <= account.Balance)
+                return true;
+            return false;
+        }
+
+        private bool CheckTargetAccountId(int targetAccountId)
+        {
+            var targetAccount = _context.Accounts.FirstOrDefault(a => a.Id == targetAccountId);
+            if(targetAccount != null)
                 return true;
             return false;
         }
