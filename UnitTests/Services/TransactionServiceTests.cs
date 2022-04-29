@@ -660,5 +660,43 @@ namespace UnitTests.Services
             Assert.AreEqual("Transfer", senderTransaction.Operation);
             Assert.AreEqual("Debit", receiverTransaction.Type);
         }
+        [TestMethod]
+        public void When_receiving_accountID_is_NOT_correct_Transfer_should_return_IncorrectTargetAccountId()
+        {
+            _context.Customers.Add(new Customer
+            {
+                Givenname = "Kalle",
+                Surname = "Anka",
+                Streetaddress = "Streetaddress",
+                City = "City",
+                Zipcode = "12345",
+                Country = "Sverige",
+                CountryCode = "SE",
+                NationalId = "19900102-1234",
+                TelephoneCountryCode = 46,
+                Telephone = "0707070707",
+                EmailAddress = "kalle.anka@hotmail.com",
+                Birthday = DateTime.Now,
+                Accounts = new List<Account>(),
+            });
+            _context.Accounts.Add(new Account
+            {
+                AccountType = "Savings",
+                Created = DateTime.Now,
+                Balance = 1000,
+                Transactions = new List<Transaction>()
+            });
+            _context.Accounts.Add(new Account
+            {
+                AccountType = "Savings",
+                Created = DateTime.Now,
+                Balance = 0,
+                Transactions = new List<Transaction>()
+            });
+            _context.SaveChanges();
+
+            var result = _sut.MakeTransfer(1, 500, 50000);
+            Assert.AreEqual(ITransactionService.TransactionStatus.IncorrectTargetAccountId, result);
+        }
     }
 }
