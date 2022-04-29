@@ -38,7 +38,7 @@ namespace BankStartWeb.Pages.Accounts
                 .ThenInclude(c => c.Transactions)
                 .First(c => c.Accounts.Any(a => a.Id == accountid));
 
-            var account = customer.Accounts.First(a => a.Id == accountid);
+            var account = _context.Accounts.First(a => a.Id == accountid);
 
             Id = account.Id;
             CustomerId = customer.Id;
@@ -53,7 +53,7 @@ namespace BankStartWeb.Pages.Accounts
                 .ThenInclude(c => c.Transactions)
                 .First(c => c.Accounts.Any(a => a.Id == accountid));
 
-            var account = customer.Accounts.First(a => a.Id == accountid);
+            var account = _context.Accounts.First(a => a.Id == accountid);
 
             Balance = account.Balance;
 
