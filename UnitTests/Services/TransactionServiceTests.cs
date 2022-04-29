@@ -1,19 +1,14 @@
-﻿using System;
+﻿using BankStartWeb.Data;
+using BankStartWeb.Services;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BankStartWeb.Data;
-using BankStartWeb.Services;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace UnitTests.Services
 {
     [TestClass]
-    // ALLA TESTER GÅR IGENOM, men om man kör "RunAllTests" blir några rödmarkerade, om man kör dem individuellt så går samtliga igenom!
     public class TransactionServiceTests
     {
         private ApplicationDbContext _context;
@@ -22,7 +17,7 @@ namespace UnitTests.Services
         public TransactionServiceTests()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(databaseName: "Test")
+                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
                 .Options;
             _context = new ApplicationDbContext(options);
             _sut = new TransactionService(_context);
@@ -58,7 +53,7 @@ namespace UnitTests.Services
             });
             _context.SaveChanges();
 
-            var result = _sut.MakeDeposit(1,1000);
+            var result = _sut.MakeDeposit(1, 1000);
             Assert.AreEqual(ITransactionService.TransactionStatus.Ok, result);
         }
         [TestMethod]

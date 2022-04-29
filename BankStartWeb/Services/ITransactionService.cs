@@ -7,7 +7,6 @@
         ITransactionService.TransactionStatus MakePayment(int accountid, decimal amount);
         ITransactionService.TransactionStatus PaySalary(int accountid, decimal amount);
         ITransactionService.TransactionStatus MakeTransfer(int accountid, decimal amount, int targetAccountId);
-
         public enum TransactionStatus
         {
             Ok,
