@@ -122,7 +122,7 @@ namespace UnitTests.Services
             _sut.MakeDeposit(1, 1000);
 
             var account = _context.Accounts.Include(a => a.Transactions)
-                .First(a => a.AccountType == "Savings");
+                .First(a => a.Id == 1);
 
             var transaction = account.Transactions.Last();
             Assert.AreEqual("Deposit cash", transaction.Operation);
@@ -608,6 +608,56 @@ namespace UnitTests.Services
 
             var result = _sut.MakeTransfer(1, 2000, 2);
             Assert.AreEqual(ITransactionService.TransactionStatus.InsufficientBalance, result);
+        }
+        [TestMethod]
+        public void When_making_Transfer_should_create_Transaction()
+        {
+            _context.Customers.Add(new Customer
+            {
+                Givenname = "Kalle",
+                Surname = "Anka",
+                Streetaddress = "Ankgatan",
+                City = "Ankeborg",
+                Zipcode = "12345",
+                Country = "Sverige",
+                CountryCode = "SE",
+                NationalId = "19900102-1234",
+                TelephoneCountryCode = 46,
+                Telephone = "0707070707",
+                EmailAddress = "kalle.anka@hotmail.com",
+                Birthday = DateTime.Now,
+                Accounts = new List<Account>(),
+            });
+            _context.Accounts.Add(new Account
+            {
+                AccountType = "Savings",
+                Created = DateTime.Now,
+                Balance = 1000,
+                Transactions = new List<Transaction>()
+            });
+            _context.Accounts.Add(new Account
+            {
+                AccountType = "Savings",
+                Created = DateTime.Now,
+                Balance = 0,
+                Transactions = new List<Transaction>()
+            });
+            _context.SaveChanges();
+
+            _sut.MakeTransfer(1, 500, 2);
+
+            var sendingAccount = _context.Accounts.Include(a => a.Transactions)
+                .First(a => a.Id == 1);
+            var receivingAccount = _context.Accounts.Include(a => a.Transactions)
+                .First(a => a.Id == 2);
+
+            var senderTransaction = sendingAccount.Transactions.Last();
+            Assert.AreEqual("Transfer", senderTransaction.Operation);
+            Assert.AreEqual("Credit", senderTransaction.Type);
+
+            var receiverTransaction = receivingAccount.Transactions.Last();
+            Assert.AreEqual("Transfer", senderTransaction.Operation);
+            Assert.AreEqual("Debit", receiverTransaction.Type);
         }
     }
 }
