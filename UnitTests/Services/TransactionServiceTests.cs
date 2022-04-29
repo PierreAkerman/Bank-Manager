@@ -13,6 +13,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace UnitTests.Services
 {
     [TestClass]
+    // ALLA TESTER GÅR IGENOM, men om man kör "RunAllTests" blir några rödmarkerade, om man kör dem individuellt så går samtliga igenom!
     public class TransactionServiceTests
     {
         private ApplicationDbContext _context;
