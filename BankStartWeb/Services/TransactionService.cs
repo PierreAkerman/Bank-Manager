@@ -5,7 +5,6 @@ namespace BankStartWeb.Services
     public class TransactionService : ITransactionService
     {
         private readonly ApplicationDbContext _context;
-
         public TransactionService(ApplicationDbContext context)
         {
             _context = context;
@@ -41,7 +40,7 @@ namespace BankStartWeb.Services
 
             if (CheckEnoughBalance(accountid, amount) == false)
                 return ITransactionService.TransactionStatus.InsufficientBalance;
-            
+
             account.Balance -= amount;
 
             var transaction = new Transaction
@@ -130,6 +129,7 @@ namespace BankStartWeb.Services
 
             if (CheckTargetAccountId(targetAccountId) == false)
                 return ITransactionService.TransactionStatus.IncorrectTargetAccountId;
+
             var targetAccount = _context.Accounts.First(a => a.Id == targetAccountId);
             targetAccount.Balance += amount;
 
@@ -146,14 +146,12 @@ namespace BankStartWeb.Services
 
             return ITransactionService.TransactionStatus.Ok;
         }
-
         private bool CheckValidAmount(decimal amount)
         {
             if (amount > 0)
                 return true;
             return false;
         }
-
         private bool CheckEnoughBalance(int accountid, decimal amount)
         {
             var account = _context.Accounts.First(a => a.Id == accountid);
@@ -161,11 +159,10 @@ namespace BankStartWeb.Services
                 return true;
             return false;
         }
-
         private bool CheckTargetAccountId(int targetAccountId)
         {
             var targetAccount = _context.Accounts.FirstOrDefault(a => a.Id == targetAccountId);
-            if(targetAccount != null)
+            if (targetAccount != null)
                 return true;
             return false;
         }
