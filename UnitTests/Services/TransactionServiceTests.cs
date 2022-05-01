@@ -226,7 +226,7 @@ namespace UnitTests.Services
             Assert.AreEqual("Credit", senderTransaction.Type);
 
             var receiverTransaction = receivingAccount.Transactions.Last();
-            Assert.AreEqual("Transfer", senderTransaction.Operation);
+            Assert.AreEqual("Transfer", receiverTransaction.Operation);
             Assert.AreEqual("Debit", receiverTransaction.Type);
         }
         [TestMethod]
