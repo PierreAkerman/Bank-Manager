@@ -23,13 +23,8 @@ namespace BankStartWeb.Pages.Accounts
         [BindProperty]
         public decimal Balance { get; set; }
         public string AccountType { get; set; }
-        public List<Transaction> Transactions { get; set; }
-        public string Type { get; set; }
-        public string Operation { get; set; }
-        public DateTime Date { get; set; }
         [BindProperty]
         public decimal Amount { get; set; }
-        public decimal NewBalance { get; set; }
         public string Fullname { get; set; }
         public int CustomerId { get; set; }
 
@@ -37,11 +32,9 @@ namespace BankStartWeb.Pages.Accounts
         {
             var customer = _context.Customers
                .Include(c => c.Accounts)
-               .ThenInclude(c => c.Transactions)
                .First(c => c.Accounts.Any(a => a.Id == accountid));
 
             var account = _context.Accounts
-                   .Include(a => a.Transactions)
                    .First(a => a.Id == accountid);
 
             Id = account.Id;
@@ -54,29 +47,25 @@ namespace BankStartWeb.Pages.Accounts
         {
             var customer = _context.Customers
                .Include(c => c.Accounts)
-               .ThenInclude(c => c.Transactions)
                .First(c => c.Accounts.Any(a => a.Id == accountid));
 
             var account = _context.Accounts
-                   .Include(a => a.Transactions)
                    .First(a => a.Id == accountid);
-
-            Balance = account.Balance;
 
             if (ModelState.IsValid)
             {
                 var result = _transactionService.MakeWithdrawl(accountid, amount);
 
-                if(result == ITransactionService.TransactionStatus.Ok)
-                    return RedirectToPage("AccountDetails", new { accountid });
-
-                else if (result == ITransactionService.TransactionStatus.NotPositiveAmount)
+                switch (result)
                 {
-                    ModelState.AddModelError(nameof(amount), "You can only withdraw a positive amount!");
-                }
-                else if (result == ITransactionService.TransactionStatus.InsufficientBalance)
-                {
-                    ModelState.AddModelError(nameof(Balance), "Not enough money!");
+                    case ITransactionService.TransactionStatus.Ok:
+                        return RedirectToPage("AccountDetails", new { accountid });
+                    case ITransactionService.TransactionStatus.NotPositiveAmount:
+                        ModelState.AddModelError(nameof(amount), "You can only withdraw a positive amount!");
+                        break;
+                    case ITransactionService.TransactionStatus.InsufficientBalance:
+                        ModelState.AddModelError(nameof(Balance), "Not enough money!");
+                        break;
                 }
             }
             Id = account.Id;

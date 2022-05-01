@@ -57,11 +57,13 @@ namespace BankStartWeb.Pages.Accounts
             {
                 var result = _transactionService.MakeDeposit(accountid, amount);
 
-                if(result == ITransactionService.TransactionStatus.Ok)
-                    return RedirectToPage("AccountDetails", new { accountid });
-                else if (result == ITransactionService.TransactionStatus.NotPositiveAmount)
+                switch (result)
                 {
-                    ModelState.AddModelError(nameof(amount), "You can only deposit a positive amount!");
+                    case ITransactionService.TransactionStatus.Ok:
+                        return RedirectToPage("AccountDetails", new { accountid });
+                    case ITransactionService.TransactionStatus.NotPositiveAmount:
+                        ModelState.AddModelError(nameof(amount), "You can only deposit a positive amount!");
+                        break;
                 }
             }
             Id = account.Id;
