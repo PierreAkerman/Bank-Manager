@@ -5,7 +5,7 @@
 <h1>@Model.CustomerName</h1>
 <h2>@Model.AccountType Account</h2>
 
-<a asp-page="/Accounts/Deposit" asp-route-accountid="@Model.Id">Deposit</a>
+<a asp-page="/Transactions/Deposit" asp-route-accountid="@Model.Id">Deposit</a>
 <a asp-page="/Accounts/Withdrawl" asp-route-accountid="@Model.Id">Withdrawl</a>
 <a asp-page="/Accounts/Payment" asp-route-accountid="@Model.Id">Payment</a>
 <a asp-page="/Accounts/Salary" asp-route-accountid="@Model.Id">Salary</a>

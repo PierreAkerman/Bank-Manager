@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 
-namespace BankStartWeb.Pages.Accounts
+namespace BankStartWeb.Pages.Transactions
 {
     public class DepositModel : PageModel
     {
@@ -60,7 +60,7 @@ namespace BankStartWeb.Pages.Accounts
                 switch (result)
                 {
                     case ITransactionService.TransactionStatus.Ok:
-                        return RedirectToPage("AccountDetails", new { accountid });
+                        return RedirectToPage("/Accounts/AccountDetails", new { accountid });
                     case ITransactionService.TransactionStatus.NotPositiveAmount:
                         ModelState.AddModelError(nameof(amount), "You can only deposit a positive amount!");
                         break;
