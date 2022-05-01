@@ -1,11 +1,10 @@
-
 #nullable disable
-
 using BankStartWeb.Data;
 using BankStartWeb.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+
 namespace BankStartWeb.Pages.Accounts
 {
     public class WithdrawlModel : PageModel
