@@ -1,11 +1,11 @@
+using System.ComponentModel.DataAnnotations;
 using BankStartWeb.Data;
+using BankStartWeb.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
-using BankStartWeb.Services;
 
-namespace BankStartWeb.Pages.Accounts
+namespace BankStartWeb.Pages.Transactions
 {
     public class SalaryModel : PageModel
     {
@@ -21,13 +21,9 @@ namespace BankStartWeb.Pages.Accounts
         public int Id { get; set; }
         public string AccountType { get; set; }
         public decimal Balance { get; set; }
-        public string Type { get; set; }
-        public string Operation { get; set; }
-        public DateTime Date { get; set; }
         [Required]
         [BindProperty]
         public decimal Amount { get; set; }
-        public decimal NewBalance { get; set; }
         public string Fullname { get; set; }
         public int CustomerId { get; set; }
 
@@ -35,7 +31,6 @@ namespace BankStartWeb.Pages.Accounts
         {
             var customer = _context.Customers
                 .Include(c => c.Accounts)
-                .ThenInclude(c => c.Transactions)
                 .First(c => c.Accounts.Any(a => a.Id == accountid));
 
             var account = _context.Accounts.First(a => a.Id == accountid);
@@ -50,22 +45,21 @@ namespace BankStartWeb.Pages.Accounts
         {
             var customer = _context.Customers
                 .Include(c => c.Accounts)
-                .ThenInclude(c => c.Transactions)
                 .First(c => c.Accounts.Any(a => a.Id == accountid));
 
             var account = _context.Accounts.First(a => a.Id == accountid);
-
-            Balance = account.Balance;
 
             if (ModelState.IsValid)
             {
                 var result = _transactionService.PaySalary(accountid, amount);
 
-                if (result == ITransactionService.TransactionStatus.Ok)
-                    return RedirectToPage("AccountDetails", new { accountid });
-                else if (result == ITransactionService.TransactionStatus.NotPositiveAmount)
+                switch (result)
                 {
-                    ModelState.AddModelError(nameof(amount), "Enter a positive amount, please!");
+                    case ITransactionService.TransactionStatus.Ok:
+                        return RedirectToPage("/Accounts/AccountDetails", new { accountid });
+                    case ITransactionService.TransactionStatus.NotPositiveAmount:
+                        ModelState.AddModelError(nameof(amount), "Enter a positive amount, please!");
+                        break;
                 }
             }
             Id = account.Id;

@@ -32,7 +32,6 @@ namespace BankStartWeb.Pages.Transactions
         public void OnGet(int accountid)
         {
             var customer = _context.Customers
-                .Include(c => c.Accounts)
                 .First(c => c.Accounts.Any(a => a.Id == accountid));
 
             var account = _context.Accounts
@@ -47,7 +46,6 @@ namespace BankStartWeb.Pages.Transactions
         public IActionResult OnPost(int accountid, decimal amount)
         {
             var customer = _context.Customers
-                .Include(c => c.Accounts)
                 .First(c => c.Accounts.Any(a => a.Id == accountid));
 
             var account = _context.Accounts

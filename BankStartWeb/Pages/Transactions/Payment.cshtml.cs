@@ -22,13 +22,9 @@ namespace BankStartWeb.Pages.Transactions
         public string AccountType { get; set; }
         [BindProperty]
         public decimal Balance  { get; set; }
-        public string Type { get; set; }
-        public string Operation { get; set; }
-        public DateTime Date { get; set; }
         [Required]
         [BindProperty]
         public decimal Amount { get; set; }
-        public decimal NewBalance { get; set; }
         public string Fullname { get; set; }
         public int CustomerId { get; set; }
 
@@ -36,7 +32,6 @@ namespace BankStartWeb.Pages.Transactions
         {
             var customer = _context.Customers
                 .Include(c => c.Accounts)
-                .ThenInclude(c => c.Transactions)
                 .First(c => c.Accounts.Any(a => a.Id == accountid));
 
             var account = customer.Accounts.First(a => a.Id == accountid);
@@ -51,27 +46,26 @@ namespace BankStartWeb.Pages.Transactions
         {
             var customer = _context.Customers
                 .Include(c => c.Accounts)
-                .ThenInclude(c => c.Transactions)
                 .First(c => c.Accounts.Any(a => a.Id == accountid));
 
             var account = _context.Accounts.First(a => a.Id == accountid);
 
-            Balance = account.Balance;
+            //Balance = account.Balance;
 
             if (ModelState.IsValid)
             {
                 var result = _transactionService.MakePayment(accountid, amount);
 
-                if(result == ITransactionService.TransactionStatus.Ok)
-                    return RedirectToPage("/Accounts/AccountDetails", new { accountid });
-
-                else if (result == ITransactionService.TransactionStatus.NotPositiveAmount)
+                switch (result)
                 {
-                    ModelState.AddModelError(nameof(amount), "Enter a positive amount, please!");
-                }
-                else if (result == ITransactionService.TransactionStatus.InsufficientBalance)
-                {
-                    ModelState.AddModelError(nameof(Balance), "Not enough money!");
+                    case ITransactionService.TransactionStatus.Ok:
+                        return RedirectToPage("/Accounts/AccountDetails", new { accountid });
+                    case ITransactionService.TransactionStatus.NotPositiveAmount:
+                        ModelState.AddModelError(nameof(amount), "Enter a positive amount, please!");
+                        break;
+                    case ITransactionService.TransactionStatus.InsufficientBalance:
+                        ModelState.AddModelError(nameof(Balance), "Not enough money!");
+                        break;
                 }
             }
             Id = account.Id;
