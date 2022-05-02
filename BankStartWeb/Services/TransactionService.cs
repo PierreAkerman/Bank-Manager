@@ -46,7 +46,7 @@ namespace BankStartWeb.Services
             var transaction = new Transaction
             {
                 Type = "Credit",
-                Operation = "ATM withdrawls",
+                Operation = "ATM withdrawl",
                 Date = DateTime.Now,
                 Amount = amount,
                 NewBalance = account.Balance,

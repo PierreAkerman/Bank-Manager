@@ -33,25 +33,25 @@ namespace BankStartWeb.Pages.Customers
 
         public void OnGet(int customerid)
         {
-            var custDetails = _context.Customers
+            var customer = _context.Customers
                 .Include(c => c.Accounts.OrderByDescending(c => c.Created))
                 .First(c => c.Id == customerid);
 
-            Id = custDetails.Id;
-            Name = custDetails.Givenname;
-            Surname = custDetails.Surname;
-            Streetaddress = custDetails.Streetaddress;
-            City = custDetails.City;
-            Zipcode = custDetails.Zipcode;
-            Country = custDetails.Country;
-            CountryCode = custDetails.CountryCode;
-            NationalId = custDetails.NationalId;
-            TelephoneCountryCode = custDetails.TelephoneCountryCode;
-            Telephone = custDetails.Telephone;
-            EmailAddress = custDetails.EmailAddress;
-            Birthday = custDetails.Birthday;
-            Accounts = custDetails.Accounts;
-            Fullname = custDetails.Givenname + " " + custDetails.Surname;
+            Id = customer.Id;
+            Name = customer.Givenname;
+            Surname = customer.Surname;
+            Streetaddress = customer.Streetaddress;
+            City = customer.City;
+            Zipcode = customer.Zipcode;
+            Country = customer.Country;
+            CountryCode = customer.CountryCode;
+            NationalId = customer.NationalId;
+            TelephoneCountryCode = customer.TelephoneCountryCode;
+            Telephone = customer.Telephone;
+            EmailAddress = customer.EmailAddress;
+            Birthday = customer.Birthday;
+            Accounts = customer.Accounts;
+            Fullname = customer.Givenname + " " + customer.Surname;
 
             TotalSaldo = 0;
             foreach (var account in Accounts)

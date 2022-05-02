@@ -104,7 +104,7 @@ namespace UnitTests.Services
                 .First(a => a.Id == 1);
 
             var transaction = account.Transactions.Last();
-            Assert.AreEqual("ATM withdrawls", transaction.Operation);
+            Assert.AreEqual("ATM withdrawl", transaction.Operation);
         }
         ///----------------------------------------------------------------------------
         ///--------------------------- PAYMENT TESTS ----------------------------------
