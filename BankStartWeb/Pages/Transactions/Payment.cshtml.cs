@@ -1,12 +1,11 @@
+using System.ComponentModel.DataAnnotations;
 using BankStartWeb.Data;
 using BankStartWeb.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
 
-namespace BankStartWeb.Pages.Accounts
+namespace BankStartWeb.Pages.Transactions
 {
     public class PaymentModel : PageModel
     {
@@ -64,7 +63,7 @@ namespace BankStartWeb.Pages.Accounts
                 var result = _transactionService.MakePayment(accountid, amount);
 
                 if(result == ITransactionService.TransactionStatus.Ok)
-                    return RedirectToPage("AccountDetails", new { accountid });
+                    return RedirectToPage("/Accounts/AccountDetails", new { accountid });
 
                 else if (result == ITransactionService.TransactionStatus.NotPositiveAmount)
                 {
