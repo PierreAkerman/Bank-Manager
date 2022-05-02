@@ -31,7 +31,7 @@ namespace BankStartWeb.Services
             return ITransactionService.TransactionStatus.Ok;
         }
 
-        public ITransactionService.TransactionStatus MakeWithdrawl(int accountid, decimal amount)
+        public ITransactionService.TransactionStatus MakeWithdraw(int accountid, decimal amount)
         {
             if (CheckValidAmount(amount) == false)
                 return ITransactionService.TransactionStatus.NotPositiveAmount;

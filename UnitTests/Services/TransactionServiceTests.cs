@@ -67,38 +67,38 @@ namespace UnitTests.Services
             Assert.AreEqual("Deposit cash", transaction.Operation);
         }
         ///----------------------------------------------------------------------------
-        ///-------------------------- WITHDRAWL TESTS ---------------------------------
+        ///-------------------------- WITHDRAW TESTS ---------------------------------
         ///----------------------------------------------------------------------------
         [TestMethod]
-        public void When_positive_amount_Withdrawl_should_return_ok()
+        public void When_positive_amount_Withdraw_should_return_ok()
         {
             CreateAccount(2000);
 
-            var result = _sut.MakeWithdrawl(1, 1000);
+            var result = _sut.MakeWithdraw(1, 1000);
             Assert.AreEqual(ITransactionService.TransactionStatus.Ok, result);
         }
         [TestMethod]
-        public void When_not_positive_amount_Withdrawl_should_return_notPositiveAmount()
+        public void When_not_positive_amount_Withdraw_should_return_notPositiveAmount()
         {
             CreateAccount(2000);
 
-            var result = _sut.MakeWithdrawl(1, 0);
+            var result = _sut.MakeWithdraw(1, 0);
             Assert.AreEqual(ITransactionService.TransactionStatus.NotPositiveAmount, result);
         }
         [TestMethod]
-        public void When_insufficient_balance_Withdrawl_should_return_insufficientBalance()
+        public void When_insufficient_balance_Withdraw_should_return_insufficientBalance()
         {
             CreateAccount(2000);
 
-            var result = _sut.MakeWithdrawl(1, 2500);
+            var result = _sut.MakeWithdraw(1, 2500);
             Assert.AreEqual(ITransactionService.TransactionStatus.InsufficientBalance, result);
         }
         [TestMethod]
-        public void When_making_Withdrawl_should_create_Transaction()
+        public void When_making_Withdraw_should_create_Transaction()
         {
             CreateAccount(1000);
 
-            _sut.MakeWithdrawl(1, 500);
+            _sut.MakeWithdraw(1, 500);
 
             var account = _context.Accounts.Include(a => a.Transactions)
                 .First(a => a.Id == 1);

@@ -7,12 +7,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BankStartWeb.Pages.Transactions
 {
-    public class WithdrawlModel : PageModel
+    public class WithdrawModel : PageModel
     {
         private readonly ApplicationDbContext _context;
         private readonly ITransactionService _transactionService;
 
-        public WithdrawlModel(ApplicationDbContext context, ITransactionService transactionService)
+        public WithdrawModel(ApplicationDbContext context, ITransactionService transactionService)
         {
             _context = context;
             _transactionService = transactionService;
@@ -53,7 +53,7 @@ namespace BankStartWeb.Pages.Transactions
 
             if (ModelState.IsValid)
             {
-                var result = _transactionService.MakeWithdrawl(accountid, amount);
+                var result = _transactionService.MakeWithdraw(accountid, amount);
 
                 switch (result)
                 {
