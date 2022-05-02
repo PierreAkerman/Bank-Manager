@@ -4,8 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 
-
-namespace BankStartWeb.Pages.Accounts
+namespace BankStartWeb.Pages.Transactions
 {
     public class TransferModel : PageModel
     {
@@ -28,13 +27,11 @@ namespace BankStartWeb.Pages.Accounts
         public string AccountType { get; set; }
         public int CustomerId { get; set; }
         public string Fullname { get; set; }
-        public DateTime Date { get; set; }
 
         public void OnGet(int accountid)
         {
             var customer = _context.Customers
                 .Include(c => c.Accounts)
-                .ThenInclude(c => c.Transactions)
                 .First(c => c.Accounts.Any(a => a.Id == accountid));
 
             var account = _context.Accounts.First(a => a.Id == accountid);
@@ -49,7 +46,6 @@ namespace BankStartWeb.Pages.Accounts
         {
             var customer = _context.Customers
                 .Include(c => c.Accounts)
-                .ThenInclude(c => c.Transactions)
                 .First(c => c.Accounts.Any(a => a.Id == accountid));
 
             var account = _context.Accounts.First(a => a.Id == accountid);
@@ -64,7 +60,7 @@ namespace BankStartWeb.Pages.Accounts
                 switch (result)
                 {
                     case ITransactionService.TransactionStatus.Ok:
-                        return RedirectToPage("AccountDetails", new { accountid });
+                        return RedirectToPage("/Accounts/AccountDetails", new { accountid });
                     case ITransactionService.TransactionStatus.NotPositiveAmount:
                         ModelState.AddModelError(nameof(amount), "You can only transfer a positive amount!");
                         break;

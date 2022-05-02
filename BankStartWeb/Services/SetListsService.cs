@@ -1,6 +1,7 @@
 ﻿using BankStartWeb.Data;
 using BankStartWeb.Pages.Accounts;
 using BankStartWeb.Pages.Customers;
+using BankStartWeb.Pages.Transactions;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BankStartWeb.Services

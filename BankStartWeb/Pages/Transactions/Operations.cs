@@ -1,4 +1,4 @@
-﻿namespace BankStartWeb.Pages.Accounts
+﻿namespace BankStartWeb.Pages.Transactions
 {
     public enum Operations
     {

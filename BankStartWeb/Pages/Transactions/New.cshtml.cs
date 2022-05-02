@@ -46,8 +46,6 @@ namespace BankStartWeb.Pages.Transactions
 
             AllTransactionTypes = _setListsService.SetAllTransactionTypes();
             AllTransactionOps = _setListsService.SetAllTransactionOperations();
-            
-
         }
         public IActionResult OnPost(int accountid)
         {
