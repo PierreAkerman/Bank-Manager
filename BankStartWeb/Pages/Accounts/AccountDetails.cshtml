@@ -4,12 +4,14 @@
 }
 <h1>@Model.CustomerName</h1>
 <h2>@Model.AccountType Account</h2>
+<div class="d-flex flex-row justify-content-center">
+    <a class="btn btn-main-sm mr-1" asp-page="/Transactions/Deposit" asp-route-accountid="@Model.Id">Deposit</a>
+    <a class="btn btn-main-sm mr-1" asp-page="/Transactions/Withdraw" asp-route-accountid="@Model.Id">Withdraw</a>
+    <a class="btn btn-main-sm mr-1" asp-page="/Transactions/Payment" asp-route-accountid="@Model.Id">Payment</a>
+    <a class="btn btn-main-sm mr-1" asp-page="/Transactions/Salary" asp-route-accountid="@Model.Id">Salary</a>
+    <a class="btn btn-main-sm" asp-page="/Transactions/Transfer" asp-route-accountid="@Model.Id">Transfer</a>
+</div>
 
-<a asp-page="/Transactions/Deposit" asp-route-accountid="@Model.Id">Deposit</a>
-<a asp-page="/Transactions/Withdraw" asp-route-accountid="@Model.Id">Withdraw</a>
-<a asp-page="/Transactions/Payment" asp-route-accountid="@Model.Id">Payment</a>
-<a asp-page="/Transactions/Salary" asp-route-accountid="@Model.Id">Salary</a>
-<a asp-page="/Transactions/Transfer" asp-route-accountid="@Model.Id">Transfer</a>
 
 @*<div class="form-group">
                 <label asp-for="OperationId">Select Transfer Operation</label>
