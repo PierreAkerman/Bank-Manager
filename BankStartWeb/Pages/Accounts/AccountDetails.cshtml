@@ -12,16 +12,6 @@
     <a class="btn btn-main-sm" asp-page="/Transactions/Transfer" asp-route-accountid="@Model.Id">Transfer</a>
 </div>
 
-
-@*<div class="form-group">
-                <label asp-for="OperationId">Select Transfer Operation</label>
-                <select class="form-control" asp-for="OperationId" asp-items="@Model.AllTransactionOps" >
-                </select>
-                <span asp-validation-for="OperationId" class="field-validation-error"></span>
-            </div>*@
-
-
-
 <table class="table">
     <tr>
         <th>Account Id</th>
@@ -53,18 +43,6 @@
         </thead>
         <tbody>
         </tbody>
-@*    @foreach (var transaction in Model.Transactions)
-    {
-        <tr>
-            <td>@transaction.Id</td>
-            <td>@transaction.Type</td>
-            <td>@transaction.Operation</td>
-            <td>@transaction.Date</td>
-            <td>@transaction.Amount</td>
-            <td>@transaction.NewBalance</td>
-        </tr>
-    }*@
-
     </table>
     <a class="btn" href="javascript:fetchMore();">See more</a>
     <a asp-page="/Customers/CustomerDetails" asp-route-customerid="@Model.CustomerId">Back</a>
@@ -82,7 +60,6 @@
                 }
             );
     }
-
 
     function tableElements(element) {
         document.querySelector('#posts-table tbody').innerHTML +=

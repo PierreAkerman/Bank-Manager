@@ -35,6 +35,23 @@ namespace BankStartWeb.Pages.Accounts
             Fullname = customer.Givenname + " " + customer.Surname;
             AllAccountTypes = _setListsServices.SetAllAccountTypes();
         }
+
+        public int CreateAccount(int customerId)
+        {
+            var customer = _context.Customers.First(c => c.Id == customerId);
+
+            var account = new Account();
+            {
+                account.AccountType = AccountTypeId;
+                account.Created = DateTime.Now;
+                account.Balance = 0;
+            }
+            customer.Accounts.Add(account);
+            _context.SaveChanges();
+            int id = account.Id;
+
+            return id;
+        }
         public IActionResult OnPost(int customerId)
         {
             var customer = _context.Customers.First(c => c.Id == customerId);
@@ -45,15 +62,7 @@ namespace BankStartWeb.Pages.Accounts
 
             if (ModelState.IsValid)
             {
-                var account = new Account();
-                {
-                    account.AccountType = AccountTypeId;
-                    account.Created = DateTime.Now;
-                    account.Balance = 0;
-                }
-                customer.Accounts.Add(account);
-                _context.SaveChanges();
-                int id = account.Id;
+                int id = CreateAccount(customerId);
                 return RedirectToPage("AccountDetails", new { accountid = id });
             }
             AllAccountTypes = _setListsServices.SetAllAccountTypes();

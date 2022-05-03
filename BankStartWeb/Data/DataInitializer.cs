@@ -15,15 +15,12 @@ public class DataInitializer
         _dbContext = dbContext;
         _userManager = userManager;
     }
-
-
     public void SeedData()
     {
         _dbContext.Database.Migrate();
         SeedCustomers();
         SeedRoles();
         SeedUsers();
-        
     }
     private void SeedUsers()
     {

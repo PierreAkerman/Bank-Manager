@@ -20,7 +20,6 @@ namespace BankStartWeb.Pages.Accounts
         public decimal Balance { get; set; }
         public int CustomerId { get; set; }
         public string CustomerName { get; set; }
-        public List<Transaction> Transactions { get; set; }
 
         public void OnGet(int accountid)
         {
@@ -37,7 +36,6 @@ namespace BankStartWeb.Pages.Accounts
             AccountType = account.AccountType;
             Created = account.Created;
             Balance = account.Balance;
-            Transactions = account.Transactions;
         }
         public IActionResult OnGetFetchMore(int accountid, int pageNo)
         {

@@ -28,14 +28,29 @@ namespace BankStartWeb.Pages.Customers
         public string Telephone { get; set; }
         public string EmailAddress { get; set; }
         public DateTime Birthday { get; set; }
-        public List<Account> Accounts { get; set; }
+        public List<AccountViewModel> Accounts { get; set; }
         public decimal TotalSaldo { get; set; }
+        [TempData]
+        public string Errormessage { get; set; }
 
-        public void OnGet(int customerid)
+        public class AccountViewModel
+        {
+            public int Id { get; set; }
+            public decimal Balance { get; set; }
+            public string AccountType { get; set; }
+        }
+
+        public IActionResult OnGet(int customerid)
         {
             var customer = _context.Customers
                 .Include(c => c.Accounts.OrderByDescending(c => c.Created))
-                .First(c => c.Id == customerid);
+                .FirstOrDefault(c => c.Id == customerid);
+
+            if (customer == default)
+            {
+                Errormessage = "Not Found!";
+                return RedirectToPage("/Index");
+            }
 
             Id = customer.Id;
             Name = customer.Givenname;
@@ -50,14 +65,23 @@ namespace BankStartWeb.Pages.Customers
             Telephone = customer.Telephone;
             EmailAddress = customer.EmailAddress;
             Birthday = customer.Birthday;
-            Accounts = customer.Accounts;
             Fullname = customer.Givenname + " " + customer.Surname;
 
+            Accounts = customer.Accounts.Select(account => new AccountViewModel
+            {
+                Id = account.Id,
+                Balance = account.Balance,
+                AccountType = account.AccountType
+
+            }).ToList();
+
+            
             TotalSaldo = 0;
             foreach (var account in Accounts)
             {
                 TotalSaldo += account.Balance;
             }
+            return Page();
         }
     }
 }

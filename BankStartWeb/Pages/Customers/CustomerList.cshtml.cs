@@ -61,50 +61,6 @@ namespace BankStartWeb.Pages.Customers
                 City = customer.City
 
             }).ToList();
-
-
-            //if (col == "id")
-            //{
-            //    if (order == "asc")
-            //        c = c.OrderBy(cust => cust.Id);
-            //    else
-            //        c = c.OrderByDescending(cust => cust.Id);
-            //}
-            //else if (col == "nationalid")
-            //{
-            //    if (order == "asc")
-            //        c = c.OrderBy(cust => cust.NationalId);
-            //    else
-            //        c = c.OrderByDescending(cust => cust.NationalId);
-            //}
-            //else if (col == "customerName")
-            //{
-            //    if (order == "asc")
-            //        c = c.OrderBy(cust => cust.Givenname);
-            //    else
-            //        c = c.OrderByDescending(cust => cust.Givenname);
-            //}
-            //else if (col == "customerSurname")
-            //{
-            //    if (order == "asc")
-            //        c = c.OrderBy(cust => cust.Surname);
-            //    else
-            //        c = c.OrderByDescending(cust => cust.Surname);
-            //}
-            //else if (col == "address")
-            //{
-            //    if (order == "asc")
-            //        c = c.OrderBy(cust => cust.Streetaddress);
-            //    else
-            //        c = c.OrderByDescending(cust => cust.Streetaddress);
-            //}
-            //else if (col == "city")
-            //{
-            //    if (order == "asc")
-            //        c = c.OrderBy(cust => cust.City);
-            //    else
-            //        c = c.OrderByDescending(cust => cust.City);
-            //}
         }   
     }
 }

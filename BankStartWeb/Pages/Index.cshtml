@@ -5,8 +5,12 @@
 }
 
 <form method="GET" asp-page="/Customers/CustomerDetails">
-    <input name="customerid" placeholder="Enter Customer Id" value=""/>
+    <input name="customerId" placeholder="Enter Customer Id" value=""/>
     <input type="submit" value="Search" />
+    @if (TempData["Errormessage"] != null)
+    {
+        <div class="card card-body bg-warning text-white5">@TempData["Errormessage"]</div>
+    }
 </form>
 
 <h2>Total Customers: @Model.TotalCustomers</h2>
