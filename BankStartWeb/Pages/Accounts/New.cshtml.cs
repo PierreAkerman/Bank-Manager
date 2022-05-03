@@ -23,18 +23,8 @@ namespace BankStartWeb.Pages.Accounts
         public string Fullname { get; set; }
         [BindProperty]
         public int CustomerId { get; set; }
-
-        public List<Transaction> Transactions { get; set; }
         [BindProperty]
         public List<SelectListItem> AllAccountTypes { get; set; }
-        public void OnGet(int customerId)
-        {
-            var customer = _context.Customers.First(c => c.Id == customerId);
-
-            CustomerId = customer.Id;
-            Fullname = customer.Givenname + " " + customer.Surname;
-            AllAccountTypes = _setListsServices.SetAllAccountTypes();
-        }
 
         public int CreateAccount(int customerId)
         {
@@ -48,10 +38,19 @@ namespace BankStartWeb.Pages.Accounts
             }
             customer.Accounts.Add(account);
             _context.SaveChanges();
-            int id = account.Id;
 
+            int id = account.Id;
             return id;
         }
+        public void OnGet(int customerId)
+        {
+            var customer = _context.Customers.First(c => c.Id == customerId);
+
+            CustomerId = customer.Id;
+            Fullname = customer.Givenname + " " + customer.Surname;
+            AllAccountTypes = _setListsServices.SetAllAccountTypes();
+        }
+
         public IActionResult OnPost(int customerId)
         {
             var customer = _context.Customers.First(c => c.Id == customerId);

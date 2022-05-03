@@ -50,7 +50,37 @@ namespace BankStartWeb.Pages.Customers
         public List<SelectListItem> AllCountryCodes { get; set; }
         [BindProperty]
         public List<SelectListItem> AllTelCodes { get; set; }
-        
+
+        public int CreateCustomer()
+        {
+            var customer = new Data.Customer
+            {
+                Givenname = Givenname,
+                Surname = Surname,
+                Streetaddress = Streetaddress,
+                City = City,
+                Zipcode = Zipcode,
+                Country = CountryId,
+                CountryCode = CountryCodeId,
+                NationalId = NationalId,
+                TelephoneCountryCode = TelCodeId,
+                Telephone = Telephone,
+                EmailAddress = EmailAddress,
+                Birthday = Birthday
+            };
+            var account = new Data.Account
+            {
+                AccountType = "Checking",
+                Created = DateTime.Now,
+                Balance = 0
+            };
+            customer.Accounts.Add(account);
+            _context.Customers.Add(customer);
+            _context.SaveChanges();
+
+            int id = customer.Id;
+            return id;
+        }
         public void OnGet()
         {
             Birthday = DateTime.Now;
@@ -63,32 +93,7 @@ namespace BankStartWeb.Pages.Customers
         {
             if (ModelState.IsValid)
             {
-                var customer = new Data.Customer
-                {
-                    Givenname = Givenname,
-                    Surname = Surname,
-                    Streetaddress = Streetaddress,
-                    City = City,
-                    Zipcode = Zipcode,
-                    Country = CountryId,
-                    CountryCode = CountryCodeId,
-                    NationalId = NationalId,
-                    TelephoneCountryCode = TelCodeId,
-                    Telephone = Telephone,
-                    EmailAddress = EmailAddress,
-                    Birthday = Birthday
-                };
-                var account = new Data.Account
-                {
-                    AccountType = "Checking",
-                    Created = DateTime.Now,
-                    Balance = 0
-                }; 
-                customer.Accounts.Add(account);
-               
-                _context.Customers.Add(customer);
-                _context.SaveChanges();
-                int id = customer.Id;
+                int id = CreateCustomer();
                 return RedirectToPage("CustomerDetails", new { customerid = id });
             }
             AllCountries = _setListsService.SetAllCountries();
