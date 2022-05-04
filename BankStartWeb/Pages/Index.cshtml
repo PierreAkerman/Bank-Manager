@@ -4,6 +4,30 @@
     ViewData["Title"] = "Home page";
 }
 
+<section>
+    <div class="d-flex justify-content-center">
+        <div class="card mr-1" style="width: 18rem;">
+            <img class="card-img-top" src="" alt="Card image cap">
+            <div class="card-body">
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+        </div>
+        <div class="card mr-1" style="width: 18rem;">
+            <img class="card-img-top" src="..." alt="Card image cap">
+            <div class="card-body">
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+        </div>
+        <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="..." alt="Card image cap">
+            <div class="card-body">
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
 <form method="GET" asp-page="/Customers/CustomerDetails">
     <input name="customerId" placeholder="Enter Customer Id" value=""/>
     <input type="submit" value="Search" />
@@ -28,3 +52,6 @@
 <h3>Swedish Balance: @Model.SwedishBalance</h3>
 <h3>Finnish Balance: @Model.FinnishBalance</h3>
 <h3>Norweigian Balance: @Model.NorweigianBalance</h3>
+
+
+
