@@ -53,9 +53,14 @@ VERSION :	1.0
 ==================================================================*/
 @import url("https://fonts.googleapis.com/css?family=Playfair+Display:400,700|Roboto:400,500,700,900");
 body {
-  line-height: 1.4;
-  font-family: "Roboto", sans-serif;
-  -webkit-font-smoothing: antialiased;
+    line-height: 1.4;
+    font-family: "Roboto", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    height: 100%;
+}
+
+html {
+    height: 100%;
 }
 
 p {

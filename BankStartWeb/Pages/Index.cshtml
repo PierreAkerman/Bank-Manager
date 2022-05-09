@@ -3,17 +3,213 @@
 @{
     ViewData["Title"] = "Home page";
 }
-
-<form method="GET" asp-page="/Customers/CustomerDetails">
-    <input name="customerId" placeholder="Enter Customer Id" value=""/>
-    <input type="submit" value="Search" />
-    @if (TempData["Errormessage"] != null)
-    {
-        <div class="card card-body bg-warning text-white5">@TempData["Errormessage"]</div>
+<style>
+    * {
+        /*box-sizing: border-box;*/
     }
-</form>
 
-<h2>Total Customers: @Model.TotalCustomers</h2>
+    .bg-image {
+        /* The image used */
+        background-image: url("/myImages/background3.jpg");
+        height: 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    /* Position text in the middle of the page/image */
+    .bg-text {
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0, 0.2); /* Black w/opacity/see-through */
+        color: white;
+        /*font-weight: bold;*/
+        /*border: 5px solid white;*/
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 2;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        
+    }
+
+    /* The flip box container - set the width and height to whatever you want. We have added the border property to demonstrate that the flip itself goes out of the box on hover (remove perspective if you don't want the 3D effect */
+    .flip-box {
+        background-color: transparent;
+        width: 800px;
+        height: 200px;
+        /*border: 1px solid #f1f1f1;*/
+        perspective: 1000px; /* Remove this if you don't want the 3D effect */
+        padding-top: 10px;
+        padding-bottom: 25px;
+        margin-bottom: 50px;
+        
+    }
+
+    /* This container is needed to position the front and back side */
+    .flip-box-inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        transition: transform 0.8s;
+        transform-style: preserve-3d;
+    }
+
+    /* Do an horizontal flip when you move the mouse over the flip box container */
+    .flip-box:hover .flip-box-inner {
+        transform: rotateX(180deg);
+    }
+
+    /* Position the front and back side */
+    .flip-box-front, .flip-box-back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        -webkit-backface-visibility: hidden; /* Safari */
+        backface-visibility: hidden;
+    }
+
+    /* Style the front side */
+    .flip-box-front {
+        color: white;
+    }
+
+    /* Style the back side */
+    .flip-box-back {
+        background-color: transparent;
+        color: white;
+        transform: rotateX(180deg);
+    }
+    li {
+        color: white;
+    }
+    
+
+</style>
+
+
+<body style="background: url(/myImages/background3.jpg) no-repeat, center; background-size: cover;">
+
+<section>
+    
+    
+    <div class="d-flex justify-content-center contact-form form-group my-5">
+        <form method="GET" asp-page="/Customers/CustomerDetails">
+            <input name="customerId" placeholder="Enter Customer Id" value=""/>
+            @*<input type="submit" value="Search" />*@
+            @if (TempData["Errormessage"] != null)
+            {
+                <div class="card card-body bg-warning text-white">@TempData["Errormessage"]</div>
+            }
+        </form>
+    </div>
+    
+    <div class="d-flex justify-content-center my-5">
+        <div class="flip-box">
+            <div class="flip-box-inner">
+                <div class="flip-box-front bg-image">
+                    <div class="bg-text"">
+                        <div style="border: 2px solid white; width: 60%; margin-left: 20%; padding: 5px 0" class="mt-5">
+                            <h1>Total Statistics</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="flip-box-back bg-image">
+                    <div class="bg-text">
+                    <h2>Total Customers: @Model.TotalCustomers</h2>
+                    <h2>Total Accounts: @Model.TotalAccounts</h2>
+                    <h2>Total $: @Model.TotalBalance</h2>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    <div class="card-containter my-5">
+        <div class="flip-card">
+            <div class="flip-card-inner">
+                <div class="myBorder flip-card-front">
+                    <img class="myBorder" src="/myImages/nor_edited_2.jpg" alt="Flag of Norway">
+                </div>
+                <div class="flip-card-back" style="background-color: transparent; border: 1px solid white;">
+                    <div class="title mt-1">
+                        <span class="border"></span>
+                    </div>
+                    <ul class="mylist">
+                        <li class="mylist-item">
+                            <h5>Customers: @Model.NorweigianCustomers</h5>
+                        </li>
+                        <li class="mylist-item">
+                            <h5>Accounts: @Model.NorweigianAccounts</h5>
+                        </li>
+                        <li>
+                            <h5 class="mylist-item">@Model.NorweigianBalance $</h5>
+                        </li>
+                    </ul>
+                    <div class="title mylist-item"><span class="border"></span></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="flip-card">
+            <div class="flip-card-inner">
+                <div class="myBorder flip-card-front">
+                    <img class="myBorder" src="/myImages/swe_edited_2.jpg" alt="Flag of Sweden">
+                </div>
+                <div class="flip-card-back">
+                    <div class="title mt-1">
+                        <span class="border"></span>
+                    </div>
+                    <ul class="mylist">
+                        <li class="mylist-item text-info">
+                            <h5>Customers: @Model.SwedishCustomers</h5>
+                        </li>
+                        <li class="mylist-item text-info">
+                            <h5>Accounts: @Model.SwedishAccounts</h5>
+                        </li>
+                        <li>
+                            <h5 class="mylist-item text-info">@Model.SwedishBalance $</h5>
+                        </li>
+                    </ul>
+                    <div class="title mylist-item"><span class="border"></span></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="flip-card">
+            <div class="flip-card-inner">
+                <div class="myBorder flip-card-front">
+                    <img class="myBorder" src="/myImages/fin_edited_2.jpg" alt="Flag of Finland">
+                </div>
+                <div class="flip-card-back">
+                    <div class="title mt-1">
+                        <span class="border"></span>
+                    </div>
+                    <ul class="mylist">
+                        <li class="mylist-item text-info">
+                            <h5>Customers: @Model.FinnishCustomers</h5>
+                        </li>
+                        <li class="mylist-item text-info">
+                            <h5>Accounts: @Model.FinnishAccounts</h5>
+                        </li>
+                        <li>
+                            <h5 class="mylist-item text-info">@Model.FinnishBalance $</h5>
+                        </li>
+                    </ul>
+                    <div class="title mylist-item"><span class="border"></span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+
+
+@*<h2>Total Customers: @Model.TotalCustomers</h2>
 <h2>Total Accounts: @Model.TotalAccounts</h2>
 <h2>Total $: @Model.TotalBalance</h2>
 
@@ -27,7 +223,7 @@
 
 <h3>Swedish Balance: @Model.SwedishBalance</h3>
 <h3>Finnish Balance: @Model.FinnishBalance</h3>
-<h3>Norweigian Balance: @Model.NorweigianBalance</h3>
+<h3>Norweigian Balance: @Model.NorweigianBalance</h3>*@
 
 
 
