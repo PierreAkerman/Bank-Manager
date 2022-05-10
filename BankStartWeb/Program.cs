@@ -2,6 +2,7 @@ using BankStartWeb.Data;
 using BankStartWeb.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using NToastNotify;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +21,13 @@ builder.Services.AddTransient<DataInitializer>();
 builder.Services.AddTransient<ICountStatisticsService, CountStatisticsService>();
 builder.Services.AddTransient<ISetListsService, SetListsService>();
 builder.Services.AddTransient<ITransactionService, TransactionService>();
+builder.Services.AddTransient<IAdminService, AdminService>();
+
+builder.Services.AddMvc().AddNToastNotifyToastr(new ToastrOptions()
+{
+    ProgressBar = false,
+    PositionClass = ToastPositions.TopCenter,
+});
 
 var app = builder.Build();
 
@@ -49,7 +57,7 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
-
+app.UseNToastNotify();
 app.MapRazorPages();
 
 app.Run();

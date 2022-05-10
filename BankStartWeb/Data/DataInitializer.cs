@@ -1,4 +1,5 @@
-﻿using Bogus;
+﻿using BankStartWeb.Services;
+using Bogus;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,12 +9,14 @@ public class DataInitializer
 {
     private readonly ApplicationDbContext _dbContext;
     private readonly UserManager<IdentityUser> _userManager;
+    private readonly IAdminService _adminService;
 
     public DataInitializer(ApplicationDbContext dbContext,
-        UserManager<IdentityUser> userManager)
+        UserManager<IdentityUser> userManager, IAdminService adminService)
     {
         _dbContext = dbContext;
         _userManager = userManager;
+        _adminService = adminService;
     }
     public void SeedData()
     {
@@ -24,28 +27,15 @@ public class DataInitializer
     }
     private void SeedUsers()
     {
-        CreateUserIfNotExists("stefan.holmberg@systementor.se", "Hejsan123#", new[] { "Admin" });
-        CreateUserIfNotExists("stefan.holmberg@customer.banken.se", "Hejsan123#", new[] { "Cashier" });
+        _adminService.CreateUser("stefan.holmberg@systementor.se", "Hejsan123#", new[] { "Admin" });
+        _adminService.CreateUser("stefan.holmberg@customer.banken.se", "Hejsan123#", new[] { "Cashier" });
     }
     private void SeedRoles()
     {
         CreateRoleIfNotExists("Admin");
         CreateRoleIfNotExists("Cashier");
     }
-    private void CreateUserIfNotExists(string email, string password, string[] roles)
-    {
-        if (_userManager.FindByEmailAsync(email).Result != null) return;
 
-        var user = new IdentityUser
-        {
-            UserName = email,
-            Email = email,
-            EmailConfirmed = true
-        };
-
-        _userManager.CreateAsync(user, password).Wait();
-        _userManager.AddToRolesAsync(user, roles).Wait();
-    }
     private void CreateRoleIfNotExists(string rolename)
     {
         if (_dbContext.Roles.Any(e => e.Name == rolename))
@@ -67,7 +57,6 @@ public class DataInitializer
     private static Random random = new Random();
     private Customer GenerateCustomer()
     {
-        // f.Date.Between(new DateTime(1999,1,1), new DateTime(1940,1,1))
         var n = random.Next(0, 100);
         Customer person = null;
         if (n < 20)

@@ -3,6 +3,7 @@ using BankStartWeb.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using NToastNotify;
 
 namespace BankStartWeb.Pages.Transactions
 {
@@ -10,11 +11,13 @@ namespace BankStartWeb.Pages.Transactions
     {
         private readonly ApplicationDbContext _context;
         private readonly ITransactionService _transactionService;
+        private readonly IToastNotification _toastNotification;
 
-        public DepositModel(ApplicationDbContext context, ITransactionService transactionService)
+        public DepositModel(ApplicationDbContext context, ITransactionService transactionService, IToastNotification toastNotification)
         {
             _context = context;
             _transactionService = transactionService;
+            _toastNotification = toastNotification;
         }
 
         // AccountProps

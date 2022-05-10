@@ -1,0 +1,12 @@
+﻿@page
+@model BankStartWeb.Pages.Admin.UserListModel
+@{
+}
+
+<ul>
+@foreach (var user in Model.Users)
+{
+    <li>@user.Email</li>
+    
+}
+</ul>

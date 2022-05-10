@@ -1,10 +1,13 @@
+
+#nullable disable
+
 using BankStartWeb.Data;
 using BankStartWeb.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
-#nullable disable
+using NToastNotify;
 
 namespace BankStartWeb.Pages.Customers
 {
@@ -12,14 +15,20 @@ namespace BankStartWeb.Pages.Customers
     {
         private readonly ApplicationDbContext _context;
         private readonly ISetListsService _setListsService;
+        private readonly IToastNotification _toastNotification;
 
-        public NewModel(ApplicationDbContext context, ISetListsService setListsService)
+        public NewModel(ApplicationDbContext context,
+                         ISetListsService setListsService,
+                            IToastNotification toastNotification)
         {
             _context = context;
             _setListsService = setListsService;
+            _toastNotification = toastNotification;
         }
+        [Required]
         [BindProperty]
         [MaxLength(50)] public string Givenname { get; set; }
+        [Required]
         [BindProperty]
         [MaxLength(50)] public string Surname { get; set; }
         [BindProperty]
@@ -39,6 +48,7 @@ namespace BankStartWeb.Pages.Customers
         [BindProperty]
         [MaxLength(50)] public string Telephone { get; set; }
         [BindProperty]
+        [Required]
         [EmailAddress] public string EmailAddress { get; set; }
         [BindProperty]
         [DataType(DataType.Date)]
@@ -75,9 +85,10 @@ namespace BankStartWeb.Pages.Customers
                 Balance = 0
             };
             customer.Accounts.Add(account);
+
             _context.Customers.Add(customer);
             _context.SaveChanges();
-
+            _toastNotification.AddSuccessToastMessage("Customer created!");
             int id = customer.Id;
             return id;
         }

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
+using NToastNotify;
 
 namespace BankStartWeb.Pages.Accounts
 {
@@ -11,11 +12,13 @@ namespace BankStartWeb.Pages.Accounts
     {
         private readonly ApplicationDbContext _context;
         private readonly ISetListsService _setListsServices;
+        private readonly IToastNotification _toastNotification;
 
-        public NewModel(ApplicationDbContext context, ISetListsService setListsServices)
+        public NewModel(ApplicationDbContext context, ISetListsService setListsServices, IToastNotification toastNotification)
         {
             _context = context;
             _setListsServices = setListsServices;
+            _toastNotification = toastNotification;
         }
         [BindProperty]
         public string AccountTypeId { get; set; }
@@ -38,6 +41,7 @@ namespace BankStartWeb.Pages.Accounts
             }
             customer.Accounts.Add(account);
             _context.SaveChanges();
+            _toastNotification.AddSuccessToastMessage("Account created!");
 
             int id = account.Id;
             return id;

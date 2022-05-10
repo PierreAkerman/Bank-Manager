@@ -99,11 +99,6 @@
     <div class="d-flex justify-content-center contact-form form-group my-5">
         <form method="GET" asp-page="/Customers/CustomerDetails">
             <input name="customerId" placeholder="Enter Customer Id" value=""/>
-            @*<input type="submit" value="Search" />*@
-            @if (TempData["Errormessage"] != null)
-            {
-                <div class="card card-body bg-warning text-white">@TempData["Errormessage"]</div>
-            }
         </form>
     </div>
     
@@ -135,7 +130,7 @@
                 <div class="myBorder flip-card-front">
                     <img class="myBorder" src="/myImages/nor_edited_2.jpg" alt="Flag of Norway">
                 </div>
-                <div class="flip-card-back" style="background-color: transparent; border: 1px solid white;">
+                <div class="flip-card-back" style="background-color: transparent; ">
                     <div class="title mt-1">
                         <span class="border"></span>
                     </div>

@@ -1,13 +1,17 @@
 ﻿using BankStartWeb.Data;
+using NToastNotify;
 
 namespace BankStartWeb.Services
 {
     public class TransactionService : ITransactionService
     {
         private readonly ApplicationDbContext _context;
-        public TransactionService(ApplicationDbContext context)
+        private readonly IToastNotification _toastNotification;
+
+        public TransactionService(ApplicationDbContext context, IToastNotification toastNotification)
         {
             _context = context;
+            _toastNotification = toastNotification;
         }
         public ITransactionService.TransactionStatus MakeDeposit(int accountid, decimal amount)
         {
@@ -27,7 +31,7 @@ namespace BankStartWeb.Services
             };
             account.Transactions.Add(transaction);
             _context.SaveChanges();
-
+            _toastNotification.AddSuccessToastMessage("Deposit was made!");
             return ITransactionService.TransactionStatus.Ok;
         }
 
@@ -53,7 +57,7 @@ namespace BankStartWeb.Services
             };
             account.Transactions.Add(transaction);
             _context.SaveChanges();
-
+            _toastNotification.AddSuccessToastMessage("Withdrawl was made!");
             return ITransactionService.TransactionStatus.Ok;
         }
 
@@ -79,7 +83,7 @@ namespace BankStartWeb.Services
             };
             account.Transactions.Add(transaction);
             _context.SaveChanges();
-
+            _toastNotification.AddSuccessToastMessage("Payment was made!");
             return ITransactionService.TransactionStatus.Ok;
         }
 
@@ -101,7 +105,7 @@ namespace BankStartWeb.Services
             };
             account.Transactions.Add(transaction);
             _context.SaveChanges();
-
+            _toastNotification.AddSuccessToastMessage("Salary was paid!");
             return ITransactionService.TransactionStatus.Ok;
         }
 
@@ -143,7 +147,7 @@ namespace BankStartWeb.Services
             };
             targetAccount.Transactions.Add(targetTransaction);
             _context.SaveChanges();
-
+            _toastNotification.AddSuccessToastMessage("Transfer was made!");
             return ITransactionService.TransactionStatus.Ok;
         }
         private bool CheckValidAmount(decimal amount)

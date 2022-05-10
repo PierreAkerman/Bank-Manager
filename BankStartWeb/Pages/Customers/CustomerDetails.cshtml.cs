@@ -1,18 +1,23 @@
+
+#nullable disable
+
 using BankStartWeb.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-#nullable disable
+using NToastNotify;
 
 namespace BankStartWeb.Pages.Customers
 {
     public class CustomerDetailsModel : PageModel
     {
         private readonly ApplicationDbContext _context;
+        private readonly IToastNotification _toastNotification;
 
-        public CustomerDetailsModel(ApplicationDbContext context)
+        public CustomerDetailsModel(ApplicationDbContext context, IToastNotification toastNotification)
         {
             _context = context;
+            _toastNotification = toastNotification;
         }
         public int Id { get; set; }
         public string Name { get; set; }
@@ -30,8 +35,6 @@ namespace BankStartWeb.Pages.Customers
         public DateTime Birthday { get; set; }
         public List<AccountViewModel> Accounts { get; set; }
         public decimal TotalSaldo { get; set; }
-        [TempData]
-        public string Errormessage { get; set; }
 
         public class AccountViewModel
         {
@@ -48,7 +51,7 @@ namespace BankStartWeb.Pages.Customers
 
             if (customer == default)
             {
-                Errormessage = "Not Found!";
+                _toastNotification.AddErrorToastMessage("Not Found!");
                 return RedirectToPage("/Index");
             }
 
