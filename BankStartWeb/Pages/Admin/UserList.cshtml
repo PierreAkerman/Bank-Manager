@@ -3,10 +3,18 @@
 @{
 }
 
-<ul>
-@foreach (var user in Model.Users)
-{
-    <li>@user.Email</li>
-    
-}
-</ul>
+
+
+    <div class="d-flex justify-content-center">
+        <ul style="width: 70%">
+            @foreach (var user in Model.Users)
+            {
+                <li>@user.Id</li>
+                <li>@user.Email <a asp-page="/Admin/UpdateUser" asp-route-id="@user.Id"><i class='bx bxs-edit'></i></a></li>
+                @foreach (var role in user.Roles)
+                {
+                    <li>@role</li>
+                }
+            }
+        </ul>
+    </div>

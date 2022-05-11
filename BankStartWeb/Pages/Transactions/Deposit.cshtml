@@ -16,12 +16,11 @@
                     <h5 class="text-info">@Model.AccountType Account</h5>
                     <h5 class="text-info">@Model.Balance $</h5>
                     <span class="border"></span>
-                    <p>Enter the amount to deposit on this account in the input field below</p>
+                    <p class="my-2">Enter the amount to deposit on this account in the input field below</p>
                 </div>
             </div>
         </div>
         <div class="row">
-            <!-- Contact Form -->
             <div class="contact-form col-12 col-md-6  mx-auto" >
                 <form id="contact-form" method="post">
                     <div class="form-group">
@@ -35,30 +34,6 @@
                 </form>
                 <a class="btn" id="contact-submit"  asp-page="/Accounts/AccountDetails" asp-route-accountid="@Model.Id">Back to @Model.AccountType Account</a>
             </div>
-            <!-- ./End Contact Form -->
-        </div> <!-- end row -->
-			
-    </div> <!-- end container -->
-</section> <!-- end section -->
-
-
-@*<div class="card">
-    <div class="card-header">
-        <h1>Deposit</h1>
-    </div>
-    <div class="container">
-        <ul>
-            <li>Name: @Model.Fullname</li>
-            <li>Balance: @Model.Balance</li>
-            <li>@Model.AccountType Account</li>
-        </ul>
-        <form method="post" class="form-control">
-            <div class="form-group">
-                <label class="form-control" asp-for="Amount">Amount</label>
-                <input class="form-control" asp-for="Amount">
-                <span asp-validation-for="Amount" class="field-validation-error"></span>
-            </div>
-            <button type="submit" class="btn">Make Deposit</button>
-        </form>
-    </div>
-</div>*@
+        </div>
+    </div> 
+</section> 

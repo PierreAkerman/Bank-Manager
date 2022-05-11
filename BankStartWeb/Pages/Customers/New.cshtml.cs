@@ -1,12 +1,10 @@
-
-#nullable disable
-
 using BankStartWeb.Data;
 using BankStartWeb.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
+using System.Security.Cryptography;
 using NToastNotify;
 
 namespace BankStartWeb.Pages.Customers
@@ -25,35 +23,50 @@ namespace BankStartWeb.Pages.Customers
             _setListsService = setListsService;
             _toastNotification = toastNotification;
         }
-        [Required]
+
+        [Required(ErrorMessage = "The Name field is required.")]
         [BindProperty]
-        [MaxLength(50)] public string Givenname { get; set; }
-        [Required]
+        [MaxLength(50)] 
+        public string Givenname { get; set; }
+        [Required(ErrorMessage = "The Surname field is required.")]
         [BindProperty]
-        [MaxLength(50)] public string Surname { get; set; }
+        [MaxLength(50)] 
+        public string Surname { get; set; }
         [BindProperty]
-        [MaxLength(50)] public string Streetaddress { get; set; }
+        [MaxLength(50)] 
+        public string? Streetaddress { get; set; }
         [BindProperty]
-        [MaxLength(50)] public string City { get; set; }
+        [MaxLength(50)] 
+        public string? City { get; set; }
         [BindProperty]
-        [MaxLength(10)] public string Zipcode { get; set; }
+        [MaxLength(10)] 
+        public string? Zipcode { get; set; }
+        [Required(ErrorMessage = "The Country field is required.")]
         [BindProperty]
         public string CountryId { get; set; }
+        [Required(ErrorMessage = "The Country Id field is required.")]
         [BindProperty]
         public string CountryCodeId { get; set; }
+        [Required(ErrorMessage = "The National Id field is required.")]
         [BindProperty]
-        [MaxLength(20)] public string NationalId { get; set; }
+        [MinLength(8)]
+        [MaxLength(12)] 
+        public string NationalId { get; set; }
         [BindProperty]
-        public int TelCodeId { get; set; }
+        public int? TelCodeId { get; set; }
         [BindProperty]
-        [MaxLength(50)] public string Telephone { get; set; }
+        [MinLength(6)]
+        [MaxLength(20)] 
+        public string? Telephone { get; set; }
         [BindProperty]
-        [Required]
-        [EmailAddress] public string EmailAddress { get; set; }
+        [Required(ErrorMessage = "The Email field is required.")]
+        [MaxLength(25)]
+        [EmailAddress] 
+        public string EmailAddress { get; set; }
         [BindProperty]
         [DataType(DataType.Date)]
-        public DateTime Birthday { get; set; }
-        public List<Account> Accounts { get; set; }
+        public DateTime? Birthday { get; set; }
+        
         [BindProperty]
         public List<SelectListItem> AllCountries { get; set; }
         [BindProperty]
@@ -73,10 +86,10 @@ namespace BankStartWeb.Pages.Customers
                 Country = CountryId,
                 CountryCode = CountryCodeId,
                 NationalId = NationalId,
-                TelephoneCountryCode = TelCodeId,
+                TelephoneCountryCode = (int)TelCodeId,
                 Telephone = Telephone,
                 EmailAddress = EmailAddress,
-                Birthday = Birthday
+                Birthday = (DateTime)Birthday
             };
             var account = new Data.Account
             {

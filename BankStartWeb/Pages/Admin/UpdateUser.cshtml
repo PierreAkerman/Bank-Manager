@@ -2,3 +2,29 @@
 @model BankStartWeb.Pages.Admin.UpdateUserModel
 @{
 }
+<section class="signin-page account">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 mx-auto">
+                <div class="block text-center">
+                    <h2 class="text-center">Edit User</h2>
+                    <form class="text-left clearfix mt-20" method="Post">
+                        <div class="form-group">
+                            <label asp-for="Email">Email</label>
+                            <input asp-for="Email" class="form-control">
+                            <span asp-validation-for="Email" class="field-validation-error"></span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label asp-for="Roles">Select Role/s</label>
+                            <select class="form-control" asp-for="Roles" asp-items="@Model.AllRoles" >
+                            </select>
+                            <span asp-validation-for="Roles" class="field-validation-error"></span>
+                        </div>
+                        <button type="submit" class="btn btn-main text-center">Save Changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

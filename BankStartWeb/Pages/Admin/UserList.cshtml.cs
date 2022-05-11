@@ -21,9 +21,10 @@ namespace BankStartWeb.Pages.Admin
         }
         public class UserViewModel
         {
+            public string Id { get; set; }
             public string UserName { get; set; }
             public string Email { get; set; }
-            public List<string> Roles { get; set; }
+            public List<string> Roles { get; set; } = new List<string>();
         }
 
         public List<UserViewModel> Users { get; set; }
@@ -31,14 +32,23 @@ namespace BankStartWeb.Pages.Admin
         {
             Users = _context.Users.Select(e => 
                 new UserViewModel
-                {
+                { 
+                    Id = e.Id,
                     UserName = e.UserName,
                     Email = e.Email,
-                    //Roles = (List<string>)_context.Roles.Select(r => r.Name)
 
                 }).ToList();
 
-            
+            foreach (var user in Users)
+            {
+                foreach (var role in _context.Roles)
+                {
+                    if(_context.UserRoles.Any(e=>e.RoleId == role.Id && e.UserId == user.Id))
+                    {
+                        user.Roles.Add(role.Name);
+                    }
+                }
+            }
             
         }
     }

@@ -46,16 +46,14 @@ namespace BankStartWeb.Pages.Admin
             UpdateRoles();
         }
 
-        public IActionResult OnPost(string email, string password, string[] roles)
+        public IActionResult OnPost()
         {
             if (!ModelState.IsValid)
             {
                 UpdateRoles();
                 return Page();
             }
-
-            _adminService.CreateUser(email, password, roles);
-
+            _adminService.CreateUser(Email, Password, SelectedRoles);
             return RedirectToPage("/Index");
         }
     }
