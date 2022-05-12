@@ -53,6 +53,8 @@ namespace BankStartWeb.Pages.Transactions
             var account = _context.Accounts
                    .First(a => a.Id == accountid);
 
+            Balance = account.Balance;
+
             if (ModelState.IsValid)
             {
                 var result = _transactionService.MakeWithdraw(accountid, amount);

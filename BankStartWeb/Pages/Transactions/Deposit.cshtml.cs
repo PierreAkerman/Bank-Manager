@@ -22,15 +22,12 @@ namespace BankStartWeb.Pages.Transactions
             _toastNotification = toastNotification;
         }
 
-        // AccountProps
         [BindProperty]
         public int Id { get; set; }
         public decimal Balance { get; set; }
         public string AccountType { get; set; }
-        // TransactionProps
         [BindProperty]
         public decimal Amount { get; set; }
-        // CustomerProps
         public string Fullname { get; set; }
         public int CustomerId { get; set; }
 

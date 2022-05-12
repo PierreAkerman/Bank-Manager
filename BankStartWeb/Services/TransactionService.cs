@@ -101,7 +101,7 @@ namespace BankStartWeb.Services
                 Operation = "Salary",
                 Date = DateTime.Now,
                 Amount = amount,
-                NewBalance = account.Balance + amount,
+                NewBalance = account.Balance
             };
             account.Transactions.Add(transaction);
             _context.SaveChanges();
