@@ -1,6 +1,4 @@
-
 #nullable disable
-
 using BankStartWeb.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

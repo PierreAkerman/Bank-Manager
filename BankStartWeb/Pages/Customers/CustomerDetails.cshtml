@@ -60,7 +60,7 @@
                     <h4>Customer Details</h4>
                     <h2>@Model.Fullname</h2>
                     <span class="border mb-2"></span>
-                    <div class="d-flex flex-row justify-content-center mb-1">
+                    <div class="d-flex flex-row justify-content-center mb-4">
                         <a class="btn btn-main-sm mr-1" asp-page="/Accounts/New" asp-route-customerId="@Model.Id">New Account</a>
                         <a class="btn btn-main-sm" asp-page="/Customers/Edit" asp-route-customerid="@Model.Id">Edit Customer</a>
                     </div>
@@ -70,7 +70,7 @@
     </div>
     
     <div class="col">
-        <div class="col-md-10 pb-1 mx-auto justify-content-center">
+        <div class="col-md-10 mx-auto justify-content-center">
             <div class="title">
                 <table class="table">
                     <thead>
@@ -95,75 +95,88 @@
             </div>
         </div>
     </div>
-    
-<div class="d-flex flex-row justify-content-between" style="gap: 5px;">
-    <div class="card d-flex mx-auto" style="width: 30rem;">
-        <div class="card-body">
-            <div class="text-center">
-                <h2>Contact Info</h2>
-            </div>
-            <table class="table table-striped">
-                <tr>
-                    <th scope="row">Telephone</th>
-                    <td>@Model.Telephone</td>
-                </tr>
-                <tr>
-                    <th scope="row">Email</th>
-                    <td>@Model.EmailAddress</td>
-                </tr>
-                <tr>
-                    <th scope="row">Address</th>
-                    <td>@Model.Streetaddress</td>
-                </tr>
-                <tr>
-                    <th scope="row">City</th>
-                    <td>@Model.City</td>
-                </tr>
-                <tr>
-                    <th scope="row">Country</th>
-                    <td>@Model.Country</td>
-                </tr>
-                <tr>
-                    <th scope="row">Country Code</th>
-                    <td>@Model.CountryCode</td>
-                </tr>
-                <tr>
-                    <th scope="row">Zip-Code</th>
-                    <td>@Model.Zipcode</td>
-                </tr>
-                <tr>
-                    <th scope="row">Tel Country Code</th>
-                    <td>@Model.TelephoneCountryCode</td>
-                </tr>
-            </table>
-        </div>
-    </div>
-    
-    <div class="card d-flex mx-auto" style="width: max-content;">
-        <div class="card-body">
-            <div class="text-center">
-                <h2>Accounts</h2>
-            </div>
-            <table class="table">
+    <span class="border mb-3"></span>
 
-                @foreach (var account in Model.Accounts)
-                {
+    <div class="d-flex flex-row justify-content-between">
+
+        <div class="card d-flex" style="width: 30rem; margin-left: 16%;">
+            <div class="card-body">
+                <div class="text-center title">
+                    <h2>Contact Info</h2>
+                    <span class="border mb-2"></span>
+                </div>
+                <table class="table table-striped">
                     <tr>
-                        <td> <a asp-page="/Accounts/AccountDetails" asp-route-accountid="@account.Id">@account.AccountType Account</a></td>
-                        <td>@account.Balance</td>
-                        <td><a asp-page="/Accounts/AccountDetails" asp-route-accountid="@account.Id">Details</a></td>
+                        <th scope="row">Telephone</th>
+                        <td>@Model.Telephone</td>
                     </tr>
-                }
-                <tr>
-                    <th scope="row">Total Balance</th>
-                    <td>@Model.TotalSaldo</td>
-                </tr>
-            </table>
+                    <tr>
+                        <th scope="row">Email</th>
+                        <td>@Model.EmailAddress</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Address</th>
+                        <td>@Model.Streetaddress</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">City</th>
+                        <td>@Model.City</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Country</th>
+                        <td>@Model.Country</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Country Code</th>
+                        <td>@Model.CountryCode</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Zip-Code</th>
+                        <td>@Model.Zipcode</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Tel Country Code</th>
+                        <td>@Model.TelephoneCountryCode</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="card d-flex flex-row" style="width: 30rem; margin-right: 16%;">
+            <div class="card-body">
+                <div class="text-center title">
+                    <h2>Accounts</h2>
+                    <span class="border mb-2"></span>
+                </div>
+                <table class="table table-striped">
+                    <tr>
+                        <th>Account Id</th>
+                        <th>Account</th>
+                        <th>Balance</th>
+
+                    </tr>
+                    @foreach (var account in Model.Accounts)
+                    {
+                        <tr>
+                            <td class="text-center">@account.Id</td>
+                            <td> <a asp-page="/Accounts/AccountDetails" asp-route-accountid="@account.Id">@account.AccountType Account</a></td>
+                            <td>@account.Balance $</td>
+                            @*<td><a asp-page="/Accounts/AccountDetails" asp-route-accountid="@account.Id">Details</a></td>*@
+                        </tr>
+                    }
+                    <tr>
+                        <th scope="row">Total Balance</th>
+                        <td style="color: transparent">-</td>
+                        <td class="font-weight-bold">@Model.TotalSaldo $</td>
+                    </tr>
+                </table>
+            </div>
         </div>
     </div>
-</div>
-    
-        <a class="btn btn-main" asp-page="/Customers/CustomerList">Back</a>
+    <div style="" class="d-flex justify-content-center mt-5">
+        <a class="btn btn-main" asp-page="/Customers/CustomerList">Back to List</a>
+    </div>
+        
     
 
 
