@@ -409,7 +409,7 @@ a:focus, a:hover {
   width: 90px;
   background: #31BB9E;
   border-color: #31BB9E;
-  margin-bottom: 10px;
+  /*margin-bottom: 10px;*/
 }
 
 .bg-gray {
@@ -476,7 +476,7 @@ a:focus, a:hover {
 }
 
 .commonTab .tab-content {
-  padding-top: 30px;
+  /*padding-top: 30px;*/
 }
 
 .account {

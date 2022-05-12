@@ -1,12 +1,14 @@
 #nullable disable
 using BankStartWeb.Data;
 using BankStartWeb.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 
 namespace BankStartWeb.Pages.Transactions
 {
+    [Authorize(Roles = "Admin, Cashier")]
     public class WithdrawModel : PageModel
     {
         private readonly ApplicationDbContext _context;

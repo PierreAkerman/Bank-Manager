@@ -1,12 +1,16 @@
+
+#nullable disable
 using BankStartWeb.Data;
 using BankStartWeb.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
-#nullable disable
+using Microsoft.AspNetCore.Authorization;
+
 namespace BankStartWeb.Pages.Customers
 {
+    [Authorize(Roles = "Admin, Cashier")]
     public class EditModel : PageModel
     {
         private readonly ApplicationDbContext _context;
@@ -17,31 +21,56 @@ namespace BankStartWeb.Pages.Customers
             _context = context;
             _setListsService = setListsService;
         }
+
+        [Required(ErrorMessage = "The Name field is required.")]
         [BindProperty]
-        [MaxLength(50)] public string Givenname { get; set; }
+        [MaxLength(50)]
+        public string Givenname { get; set; }
+        [Required(ErrorMessage = "The Surname field is required.")]
         [BindProperty]
-        [MaxLength(50)] public string Surname { get; set; }
+        [MaxLength(50)]
+        public string Surname { get; set; }
+        [Required(ErrorMessage = "This field is required.")]
         [BindProperty]
-        [MaxLength(50)] public string Streetaddress { get; set; }
+        [MaxLength(50)]
+        public string Streetaddress { get; set; }
+        [Required]
         [BindProperty]
-        [MaxLength(50)] public string City { get; set; }
+        [MaxLength(50)]
+        public string City { get; set; }
+        [Required(ErrorMessage = "This field is required.")]
         [BindProperty]
-        [MaxLength(10)] public string Zipcode { get; set; }
+        [MaxLength(10)]
+        public string Zipcode { get; set; }
+        [Required(ErrorMessage = "The Country field is required.")]
         [BindProperty]
         public string CountryId { get; set; }
+        [Required(ErrorMessage = "The Country Id field is required.")]
         [BindProperty]
         public string CountryCodeId { get; set; }
+        [Required(ErrorMessage = "The National Id field is required.")]
         [BindProperty]
-        [MaxLength(20)] public string NationalId { get; set; }
+        [MinLength(8)]
+        [MaxLength(13)]
+        public string NationalId { get; set; }
+        [Required(ErrorMessage = "This field is required.")]
         [BindProperty]
         public int TelCodeId { get; set; }
+        [Required(ErrorMessage = "This field is required.")]
         [BindProperty]
-        [MaxLength(50)] public string Telephone { get; set; }
+        [MinLength(6)]
+        [MaxLength(20)]
+        public string Telephone { get; set; }
         [BindProperty]
-        [EmailAddress] public string EmailAddress { get; set; }
+        [Required(ErrorMessage = "The Email field is required.")]
+        [MaxLength(25)]
+        [EmailAddress]
+        public string EmailAddress { get; set; }
+        [Required(ErrorMessage = "This field is required.")]
         [BindProperty]
         [DataType(DataType.Date)]
         public DateTime Birthday { get; set; }
+
         [BindProperty]
         public List<SelectListItem> AllCountries { get; set; }
         [BindProperty]

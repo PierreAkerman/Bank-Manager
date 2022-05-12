@@ -4,10 +4,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Authorization;
 using NToastNotify;
 
 namespace BankStartWeb.Pages.Accounts
 {
+    [Authorize(Roles="Admin, Cashier")]
     public class NewModel : PageModel
     {
         private readonly ApplicationDbContext _context;

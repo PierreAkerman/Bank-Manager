@@ -2,12 +2,14 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using BankStartWeb.Data;
 using BankStartWeb.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BankStartWeb.Pages.Admin
 {
+    [Authorize(Roles = "Admin")]
     public class RegisterUserModel : PageModel
     {
         private readonly ApplicationDbContext _context;
@@ -54,7 +56,7 @@ namespace BankStartWeb.Pages.Admin
                 return Page();
             }
             _adminService.CreateUser(Email, Password, SelectedRoles);
-            return RedirectToPage("/Index");
+            return RedirectToPage("/Admin/UserList");
         }
     }
 }

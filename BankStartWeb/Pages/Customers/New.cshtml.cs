@@ -5,10 +5,13 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
 using System.Security.Cryptography;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using NToastNotify;
 
 namespace BankStartWeb.Pages.Customers
 {
+    [Authorize(Roles = "Admin, Cashier")]
     public class NewModel : PageModel
     {
         private readonly ApplicationDbContext _context;
@@ -32,15 +35,18 @@ namespace BankStartWeb.Pages.Customers
         [BindProperty]
         [MaxLength(50)] 
         public string Surname { get; set; }
+        [Required(ErrorMessage = "This field is required.")]
         [BindProperty]
         [MaxLength(50)] 
-        public string? Streetaddress { get; set; }
+        public string Streetaddress { get; set; }
+        [Required]
         [BindProperty]
         [MaxLength(50)] 
-        public string? City { get; set; }
+        public string City { get; set; }
+        [Required(ErrorMessage = "This field is required.")]
         [BindProperty]
         [MaxLength(10)] 
-        public string? Zipcode { get; set; }
+        public string Zipcode { get; set; }
         [Required(ErrorMessage = "The Country field is required.")]
         [BindProperty]
         public string CountryId { get; set; }
@@ -50,19 +56,22 @@ namespace BankStartWeb.Pages.Customers
         [Required(ErrorMessage = "The National Id field is required.")]
         [BindProperty]
         [MinLength(8)]
-        [MaxLength(12)] 
+        [MaxLength(13)] 
         public string NationalId { get; set; }
+        [Required(ErrorMessage = "This field is required.")]
         [BindProperty]
-        public int? TelCodeId { get; set; }
+        public int TelCodeId { get; set; }
+        [Required(ErrorMessage = "This field is required.")]
         [BindProperty]
         [MinLength(6)]
         [MaxLength(20)] 
-        public string? Telephone { get; set; }
+        public string Telephone { get; set; }
         [BindProperty]
         [Required(ErrorMessage = "The Email field is required.")]
         [MaxLength(25)]
         [EmailAddress] 
         public string EmailAddress { get; set; }
+        [Required(ErrorMessage = "This field is required.")]
         [BindProperty]
         [DataType(DataType.Date)]
         public DateTime? Birthday { get; set; }

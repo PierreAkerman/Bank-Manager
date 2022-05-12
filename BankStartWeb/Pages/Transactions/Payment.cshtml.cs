@@ -1,12 +1,14 @@
 using System.ComponentModel.DataAnnotations;
 using BankStartWeb.Data;
 using BankStartWeb.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 
 namespace BankStartWeb.Pages.Transactions
 {
+    [Authorize(Roles = "Admin, Cashier")]
     public class PaymentModel : PageModel
     {
         private readonly ApplicationDbContext _context;
@@ -49,8 +51,6 @@ namespace BankStartWeb.Pages.Transactions
                 .First(c => c.Accounts.Any(a => a.Id == accountid));
 
             var account = _context.Accounts.First(a => a.Id == accountid);
-
-            //Balance = account.Balance;
 
             if (ModelState.IsValid)
             {

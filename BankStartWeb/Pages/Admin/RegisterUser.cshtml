@@ -3,14 +3,13 @@
 @{
 }
 
-
-<section class="signin-page account">
+<section class="account d-flex flex-column pt-5 justify-content-start">
     <div class="container">
         <div class="row">
             <div class="col-md-6 mx-auto">
                 <div class="block text-center">
                     <h2 class="text-center">Create New User</h2>
-                    <form class="text-left clearfix mt-20" method="Post">
+                    <form class="text-left clearfix mt-50" method="Post">
                         <div class="form-group">
                             <input asp-for="Email" class="form-control"  placeholder="Enter Email">
                             <span asp-validation-for="Email" class="field-validation-error"></span>
@@ -25,7 +24,10 @@
                             </select>
                             <span asp-validation-for="SelectedRoles" class="field-validation-error"></span>
                         </div>
-                        <button type="submit" class="btn btn-main text-center">Register User</button>
+                        <div class="d-flex justify-content-center">
+                            <button type="submit" class="btn btn-main ">Register User</button>
+                            <a style="font-weight: 100;" class="btn btn-main ml-1" asp-page="/Admin/UserList">Cancel</a>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -34,7 +36,7 @@
 </section>
 
 
-<form method="Post">
+@*<form method="Post">
 
     <div class="form-group">
         <input class="form-control" asp-for="Email">
@@ -54,7 +56,8 @@
     </div>
 
     <input type="submit" class="btn " value="Create User">
+    
 
-</form>
+</form>*@
 
 <partial name="Shared/_ValidationScriptsPartial"/>

@@ -74,9 +74,12 @@ Fixed Navigation
                             <li class="nav-item active">
                                 <a class="nav-link" asp-page="/Index">Home <span class="sr-only">(current)</span></a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-page="/Customers/CustomerList">Customers</a>
-                            </li>
+                            @if (User.IsInRole("Admin") || User.IsInRole("Cashier"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="" asp-page="/Customers/CustomerList">Customers</a>
+                                </li>
+                            }
                             @if (User.IsInRole("Admin"))
                             {
                                 <li class="nav-item dropdown">
@@ -89,8 +92,6 @@ Fixed Navigation
                                     </div>
                                 </li>
                             }
-                            
-
                         </ul>
                         <partial name="_LoginPartial" />
                     </div>
@@ -103,7 +104,7 @@ Fixed Navigation
 
 
 
-        <main class="pb-3">
+        <main @*class="pb-3"*@>
             @RenderBody()
         </main>
 

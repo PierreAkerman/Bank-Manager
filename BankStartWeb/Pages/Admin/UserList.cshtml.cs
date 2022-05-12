@@ -1,4 +1,5 @@
 using BankStartWeb.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
@@ -9,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BankStartWeb.Pages.Admin
 {
+    [Authorize(Roles = "Admin")]
     public class UserListModel : PageModel
     {
         private readonly ApplicationDbContext _context;

@@ -1,4 +1,5 @@
 using BankStartWeb.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -6,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BankStartWeb.Pages.Admin
 {
+    [Authorize(Roles = "Admin")]
     public class UpdateUserModel : PageModel
     {
         private readonly ApplicationDbContext _context;
@@ -66,7 +68,7 @@ namespace BankStartWeb.Pages.Admin
                 _context.SaveChanges();
                 _userManager.AddToRolesAsync(user, Roles).Wait();
 
-                return RedirectToPage("/Index");
+                return RedirectToPage("/Admin/UserList");
             }
             return Page();
         }

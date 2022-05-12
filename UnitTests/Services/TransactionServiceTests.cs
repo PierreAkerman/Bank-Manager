@@ -11,7 +11,7 @@ namespace UnitTests.Services
     [TestClass]
     public class TransactionServiceTests
     {
-        private ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
         private readonly TransactionService _sut;
 
         public TransactionServiceTests()
@@ -21,7 +21,7 @@ namespace UnitTests.Services
                 .Options;
 
             _context = new ApplicationDbContext(options);
-            _sut = new TransactionService(_context);
+            _sut = new TransactionService(_context, null);
         }
         public void CreateAccount(decimal balance)
         {

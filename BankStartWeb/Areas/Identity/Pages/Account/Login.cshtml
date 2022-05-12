@@ -17,15 +17,11 @@
                                     <span asp-validation-for="Input.Email" class="text-danger"></span>
                                 </div>
                                 <div class="form-group">
-                                    <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true">
+                                    <input asp-for="Input.Password" class="form-control" autocomplete="current-password" placeholder="Password" aria-required="true">
                                     <span asp-validation-for="Input.Password" class="text-danger"></span>
                                 </div>
                                 <button id="login-submit" type="submit" class="btn btn-main" >Sign In</button>
-                        
                             </form>
-                            <p>
-                                <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
-                            </p>
                         </div>
                     </div>
                 </div>

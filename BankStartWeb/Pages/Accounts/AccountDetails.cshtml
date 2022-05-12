@@ -2,50 +2,122 @@
 @model BankStartWeb.Pages.Accounts.AccountDetailsModel
 @{
 }
-<h1>@Model.CustomerName</h1>
-<h2>@Model.AccountType Account</h2>
-<div class="d-flex flex-row justify-content-center">
-    <a class="btn btn-main-sm mr-1" asp-page="/Transactions/Deposit" asp-route-accountid="@Model.Id">Deposit</a>
-    <a class="btn btn-main-sm mr-1" asp-page="/Transactions/Withdraw" asp-route-accountid="@Model.Id">Withdraw</a>
-    <a class="btn btn-main-sm mr-1" asp-page="/Transactions/Payment" asp-route-accountid="@Model.Id">Payment</a>
-    <a class="btn btn-main-sm mr-1" asp-page="/Transactions/Salary" asp-route-accountid="@Model.Id">Salary</a>
-    <a class="btn btn-main-sm" asp-page="/Transactions/Transfer" asp-route-accountid="@Model.Id">Transfer</a>
-</div>
 
-<table class="table">
-    <tr>
-        <th>Account Id</th>
-        <td>@Model.Id</td>
-    </tr>
-    <tr>
-        <th>Account Type</th>
-        <td>@Model.AccountType</td>
-    </tr>
-    <tr>
-        <th>Date Created</th>
-        <td>@Model.Created</td>
-    </tr>
-        <tr>
-        <th>Balance</th>
-        <td>@Model.Balance</td>
-    </tr>
-</table>
+<section class="service-2 section bg-gray">
+    
+    <style>
+        .table {
+            width: 100%;
+            max-width: 100%;
+            margin-bottom: 1rem;
+            background-color: transparent;
+            border: 0;
+        }
 
-    <table class="table" id="posts-table">
-        <thead>
-            <tr>
-                <th>Transaction</th>
-                <th>Operation</th>
-                <th>Created</th>
-                <th>Amount</th>
-                <th>New Balance</th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
-    <a class="btn" href="javascript:fetchMore();">See more</a>
-    <a asp-page="/Customers/CustomerDetails" asp-route-customerid="@Model.CustomerId">Back</a>
+        .table th,
+        .table td {
+            padding: 0.75rem;
+            vertical-align: top;
+            border: 0;
+        }
+
+        .table thead th {
+            vertical-align: bottom;
+            border: 0;
+        }
+
+        .table tbody + tbody {
+            border: 0;
+        }
+        .mytable {
+            border: 1px solid #dee2e6;
+            padding: 5px 10px;
+        }
+
+        .mytable th,
+        .mytable td {
+            padding: 0.75rem;
+            vertical-align: top;
+            border-top: 1px solid #dee2e6;
+        }
+
+        .mytable thead th {
+            vertical-align: bottom;
+            border-bottom: 2px solid #dee2e6;
+        }
+
+        .table tbody + tbody {
+            border-top: 2px solid #dee2e6;
+        }
+
+    </style>
+    
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="title text-center">
+                    <h4>@Model.AccountType Account</h4>
+                    <h2>@Model.CustomerName</h2>
+                    <span class="border mb-2"></span>
+                    <div class="d-flex flex-row justify-content-center mb-1">
+                        <a class="btn btn-main-sm mr-1" asp-page="/Transactions/Deposit" asp-route-accountid="@Model.Id">Deposit</a>
+                        <a class="btn btn-main-sm mr-1" asp-page="/Transactions/Withdraw" asp-route-accountid="@Model.Id">Withdraw</a>
+                        <a class="btn btn-main-sm mr-1" asp-page="/Transactions/Payment" asp-route-accountid="@Model.Id">Payment</a>
+                        <a class="btn btn-main-sm mr-1" asp-page="/Transactions/Salary" asp-route-accountid="@Model.Id">Salary</a>
+                        <a class="btn btn-main-sm" asp-page="/Transactions/Transfer" asp-route-accountid="@Model.Id">Transfer</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="col-md-10 pb-1 mx-auto justify-content-center">
+                <div class="title">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th><h4>Account Id</h4></th>
+                                <th><h4>Account Type</h4></th>
+                                <th><h4>Created</h4></th>
+                                <th><h4>Balance</h4></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><p>@Model.Id</p></td>
+                                <td><p>@Model.AccountType</p></td>
+                                <td><p>@Model.Created.ToShortDateString()</p></td>
+                                <td><p>@Model.Balance$</p></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="col-md-10 p-0 mx-auto justify-content-center">
+                <div class="@*service-item*@ text-center">
+                    <table class="table table-striped mytable" id="posts-table">
+                        <thead>
+                        <tr>
+                            <th>Transaction</th>
+                            <th>Operation</th>
+                            <th>Created</th>
+                            <th>Amount</th>
+                            <th>New Balance</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                    <a class="btn btn-main-sm" href="javascript:fetchMore();">See more</a>
+                    
+                </div>
+                <a class="btn btn-main-sm" asp-page="/Customers/CustomerDetails" asp-route-customerid="@Model.CustomerId">Back</a>
+            </div>
+        </div>
+    </div>
+</section>
 
 @section Scripts
 {
@@ -67,8 +139,8 @@
     <td>${element.type}</td>
     <td>${element.operation}</td>
     <td>${element.date}</td>
-    <td>${element.amount}</td>
-    <td>${element.newBalance}</td>
+    <td>${element.amount}$</td>
+    <td>${element.newBalance}$</td>
     
     </tr>`;
     }
@@ -80,3 +152,31 @@
 
 </script>    
 }
+
+@*<h1>@Model.CustomerName</h1>
+<h2>@Model.AccountType Account</h2>
+<div class="d-flex flex-row justify-content-center">
+    <a class="btn btn-main-sm mr-1" asp-page="/Transactions/Deposit" asp-route-accountid="@Model.Id">Deposit</a>
+    <a class="btn btn-main-sm mr-1" asp-page="/Transactions/Withdraw" asp-route-accountid="@Model.Id">Withdraw</a>
+    <a class="btn btn-main-sm mr-1" asp-page="/Transactions/Payment" asp-route-accountid="@Model.Id">Payment</a>
+    <a class="btn btn-main-sm mr-1" asp-page="/Transactions/Salary" asp-route-accountid="@Model.Id">Salary</a>
+    <a class="btn btn-main-sm" asp-page="/Transactions/Transfer" asp-route-accountid="@Model.Id">Transfer</a>
+</div>
+
+
+
+<table class="table" id="posts-table">
+    <thead>
+    <tr>
+        <th>Transaction</th>
+        <th>Operation</th>
+        <th>Created</th>
+        <th>Amount</th>
+        <th>New Balance</th>
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+<a class="btn btn-main" href="javascript:fetchMore();">See more</a>
+<a asp-page="/Customers/CustomerDetails" asp-route-customerid="@Model.CustomerId">Back</a>*@

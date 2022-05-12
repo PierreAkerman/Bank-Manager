@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace BankStartWeb.Pages.Customers
 {
+    [Authorize(Roles = "Admin, Cashier")]
     public class CustomerListModel : PageModel
     {
         public List<CustomerViewModel> Customers = new();

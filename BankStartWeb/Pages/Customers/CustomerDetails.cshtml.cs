@@ -2,6 +2,7 @@
 #nullable disable
 
 using BankStartWeb.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +10,7 @@ using NToastNotify;
 
 namespace BankStartWeb.Pages.Customers
 {
+    [Authorize(Roles = "Admin, Cashier")]
     public class CustomerDetailsModel : PageModel
     {
         private readonly ApplicationDbContext _context;
