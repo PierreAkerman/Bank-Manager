@@ -15,37 +15,17 @@
     }
 </style>
 
-@*<div class="d-flex justify-content-center">
-    <ul style="width: 70%">
-        @foreach (var user in Model.Users)
-        {
-            <li>@user.Id</li>
-            <li>@user.Email <a asp-page="/Admin/UpdateUser" asp-route-id="@user.Id"><i class='bx bxs-edit'></i></a></li>
-            @foreach (var role in user.Roles)
-            {
-                <li>@role</li>
-            }
-        }
-    </ul>
-</div>*@
-
 <section>
     <div class="container mt-2">
         <div>
-
             <div class="mytitle title">
                 <h1>Users</h1>
                 <span class="border"></span>
             </div>
-
-
             <div >
                 <a class="btn btn-main-sm" asp-page="/Admin/RegisterUser">New User</a>
             </div>
-
-
         </div>
-
 
         <div class="mytable">
             <table class="table table-hover">
